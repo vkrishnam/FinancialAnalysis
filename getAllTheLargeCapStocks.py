@@ -12,7 +12,8 @@ from WebScrapperRoutines import getPageContent_Screener
 
 import os.path
 from os import path
-
+import numpy as np # linear algebra
+import pandas as pd # pandas for dataframe based data processing and CSV file I/O
 
 def is_number_tryexcept(s):
     """ Returns True is string is a number. """
@@ -170,9 +171,58 @@ def getAllTheStocksInfo(cap='LARGE', force=False):
         return getAllTheSmallCapStocks(overrule=force)
     if cap is 'MID':
         return getAllTheMidCapStocks(overrule=force)
+
+def getDataForTheStock(dictOfStocks, symbol):
+    return dictOfStocks[symbol]
+
+def getROCEForTheStock(stockInfo):
+    table = stockInfo[6]
+    #print(table)
+    #table[0].insert(0,'None')
+    #print(table)
+    frame = pd.DataFrame(table)    
+    print(frame)
+    lol = frame.values.tolist()
+    temp =  lol[1][1:] 
+    for i in range(0,len(temp),1):
+        if '%' in temp[i]:
+            temp[i].replace('%','')
+        if is_number_tryexcept(temp[i]):
+            temp[i] = float(temp[i])
+        else:
+            temp[i] = 0.0
+    a = temp #[float(x[:-1]) for x in temp]
+    return a
+
+def doesRoceDataMeetCriteria(roce_info, threshold):
+    return all(i >= threshold for i in roce_info)
+
+
+def checkForCoffeeCanInvestingStocks(dictLargeCap):
+    coffeeCanPortfolio = []
+    largeCapList = list(dictLargeCap.keys())
+    #print(largeCapList)
+    print("Total LargeCap Stocks: ", len(largeCapList))
+    for i in range(5,len(largeCapList),1):
+        #print(i)
+        #print(largeCapList[i])
+        symbol = largeCapList[i]
+        stockInfo = getDataForTheStock(dictLargeCap, symbol)
+        #print(stockInfo)
+        roce_info = getROCEForTheStock(stockInfo)
+        #print(roce_info)
+        isRoceCriteriaMatch = doesRoceDataMeetCriteria(roce_info, 15)
+        if isRoceCriteriaMatch:
+            coffeeCanPortfolio.append(stockInfo)
     
+    return coffeeCanPortfolio
+
+# USE THIS TO BUILD THE DATABASE        
 pprint(getAllTheStocksInfo('LARGE', True))
 pprint(getAllTheStocksInfo('MID', True))
 pprint(getAllTheStocksInfo('SMALL', True))
     
    
+#dictLargeCap = getAllTheStocksInfo('LARGE', False)
+#ccp = checkForCoffeeCanInvestingStocks(dictLargeCap)
+#print("Number of CCP Stocks :", len(ccp))

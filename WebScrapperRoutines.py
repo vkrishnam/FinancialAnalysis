@@ -26,7 +26,7 @@ def get_table_simple(table,is_table_tag=True):
             text = elem.text.strip().replace("\n","").replace(",","")
             text = remove_multiple_spaces(text)
             if len(text)==0:
-                continue
+                text = 0.0
             row_data.append(text)
         table_data.append(row_data)
     return table_data
