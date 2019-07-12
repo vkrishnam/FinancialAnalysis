@@ -1,0 +1,1539 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs -->
+<meta charset="utf-8"/>
+<title>3M India Ltd - Screener</title>
+<meta content="Screener is a stock screener and research tool for Indian stocks." name="description"/>
+<meta content="Mittal Analytics Private Limited" name="author"/>
+<!-- Mobile Specific Meta -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KG8ZGC4');</script>
+<!-- End Google Tag Manager -->
+<!-- FONT -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet"/>
+<link href="/static/fontello/css/fontello.cb77b4d6725e.css" rel="stylesheet">
+<!-- CSS -->
+<link href="/static/css/normalize.fda27b856c2e.css" rel="stylesheet"/>
+<link href="/static/css/skeleton.66be35d12f44.css" rel="stylesheet"/>
+<link href="/static/css/custom.6bdf70b95e71.css" rel="stylesheet"/>
+<!-- Favicon -->
+<link href="/static/img/favicon.4954d9b67008.png" rel="icon" type="image/png"/>
+<style>
+  tr[data-row-company-name="3M India"] {
+    font-weight: 600;
+  }
+  tr[data-row-company-name="3M India"] a {
+    color: #222;
+  }
+</style>
+</link></head>
+<body id="top">
+<dialog class="flex-column" id="modal">
+<div class="flex-row-sm flex-baseline" id="modal-header">
+<button onclick="Modal.close()">
+<i class="icon-left-thin"></i>
+</button>
+<div id="modal-title"></div>
+<div class="flex-filler"></div>
+<button onclick="Modal.close()">
+<i class="icon-cancel"></i>
+        Close
+      </button>
+</div>
+<div id="modal-content"></div>
+</dialog>
+<nav class="u-full-width no-print" id="top-nav-holder">
+<div class="container">
+<div id="top-nav">
+<button aria-label="Show Navigation Menu" class="button-link nav-item" id="top-nav-menu-button">
+<i class="icon-menu bigger"></i>
+</button>
+<a class="nav-item" href="/">
+<img alt="Screener Logo" class="logo" src="/static/img/logo-nav.66821a39000d.svg"/>
+</a>
+<button aria-label="Goto Company Search" class="button-link nav-item" id="top-nav-search-button">
+<i class="icon-search bigger"></i>
+</button>
+<div id="top-nav-search">
+<div class="has-addon right-addon">
+<i class="addon icon-search"></i>
+<input aria-label="Search Company" autocomplete="off" class="u-full-width" data-company-search="true" placeholder="Company Search..." spellcheck="false" type="search"/>
+</div>
+</div>
+<span id="top-nav-space"></span>
+<div id="top-nav-menu">
+<a class="nav-item" href="/features/">
+          Features
+        </a>
+<a class="nav-item" href="/screens/">
+          Screens
+        </a>
+<div class="dropdown-button">
+<a aria-haspopup="true" class="nav-item" href="/gold/">Gold <i class="icon-angle-down"></i></a>
+<div class="dropdown-content close-dropdown" style="min-width: 300px; left: -150px">
+<a class="feature-horizontal" href="/hs/">
+<img alt="" src="/static/icons/shipment.df673ee06540.svg"/>
+<div>
+<div class="title">Search Product Prices</div>
+<div class="sub">See Price trends of raw materials and finished goods</div>
+</div>
+</a>
+<a class="feature-horizontal" href="/ratings/">
+<img alt="" src="/static/icons/badge.42b4ed8168e4.svg"/>
+<div>
+<div class="title">Credit Rating Reports</div>
+<div class="sub">Search credit ratings reports of unlisted competitors</div>
+</div>
+</a>
+<a class="button button-primary" href="/gold/">Screener Gold</a>
+</div>
+</div>
+<a class="nav-item" href="/login/">
+<i class="icon-user"></i> Login
+        </a>
+</div>
+</div>
+</div>
+</nav>
+<main class="container" id="main-area">
+<div class="flex-row flex-baseline flex-space-between" data-company-id="13" data-warehouse-id="3492" id="company-info">
+<h1 class="no-margin">3M India Ltd</h1>
+<form class="no-margin" method="POST">
+<input name="csrfmiddlewaretoken" type="hidden" value="RwOgCMktm5LWfl3uLRhvcVAjhylMxjWipygR5pfO1dBflNVmRMJQEer6o6FxmaZ6">
+<input name="next" type="hidden" value="/company/3MINDIA/"/>
+<button class="button-text no-margin" formaction="/user/company/export/3492/">
+<i class="icon-download"></i>
+<span class="hide-on-mobile"> Export to Excel</span>
+</button>
+<button class="button-primary no-margin" formaction="/api/company/13/add/">
+<i class="icon-heart"></i>
+<span class="hide-on-mobile">Add to Watchlist</span>
+</button>
+</input></form>
+</div>
+<p class="sub bigger">3M India Limited is a technology company. The Company's segments include Industrial segment, Health Care, Safety and Graphics, Consumer and Energy. </p>
+<nav class="show-on-tablet" id="pseudo-scroll-aid-bar">
+<div class="sub-nav">
+<a class="active" href="#top">3M India</a>
+<a href="#chart">Chart</a>
+<a href="#analysis">Analysis</a>
+<a href="#peers">Peers</a>
+<a href="#quarters">Quarters</a>
+<a href="#profit-loss">Profit &amp; Loss</a>
+<a href="#balance-sheet">Balance Sheet</a>
+<a href="#cash-flow">Cash Flow</a>
+<a href="#ratios">Ratios</a>
+<a href="#documents">Documents</a>
+</div>
+</nav>
+<nav class="show-on-tablet" id="fixed-scroll-aid-bar">
+<div class="sub-nav">
+<a href="#top">3M India</a>
+<a href="#chart">Chart</a>
+<a href="#analysis">Analysis</a>
+<a href="#peers">Peers</a>
+<a href="#quarters">Quarters</a>
+<a href="#profit-loss">Profit &amp; Loss</a>
+<a href="#balance-sheet">Balance Sheet</a>
+<a href="#cash-flow">Cash Flow</a>
+<a href="#ratios">Ratios</a>
+<a href="#documents">Documents</a>
+</div>
+</nav>
+<section>
+<ul class="row-full-width" style="margin:0; list-style: none; padding-left: 0; font-size: 120%">
+<li class="four columns">
+    
+      Market Cap:
+      
+      <i class="icon-rupee"></i>
+<b>24,477</b>
+      
+      Cr.
+      
+    
+  </li>
+<li class="four columns">
+    
+      Current Price:
+      
+      <i class="icon-rupee"></i>
+<b>21,719</b>
+</li>
+<li class="four columns">
+    
+      52 weeks High / Low
+      <i class="icon-rupee"></i> <b>26679.25</b> / <b>19015.00</b>
+</li>
+<li class="four columns">
+    
+      Book Value:
+      
+      <i class="icon-rupee"></i>
+<b>1,650</b>
+</li>
+<li class="four columns">
+    
+      Stock P/E:
+      
+      <b>75.78</b>
+</li>
+<li class="four columns">
+    
+      Dividend Yield:
+      
+      <b>0.00</b>
+      
+      %
+      
+    
+  </li>
+<li class="four columns">
+    
+      ROCE:
+      
+      <b>34.63</b>
+      
+      %
+      
+    
+  </li>
+<li class="four columns">
+    
+      ROE:
+      
+      <b>22.48</b>
+      
+      %
+      
+    
+  </li>
+<li class="four columns">
+    
+      Sales Growth (3Yrs):
+      
+      <b>11.57</b>
+      
+      %
+      
+    
+  </li>
+<li class="four columns">
+    
+      Listed on
+      <a data-tooltip="523395" href="https://www.bseindia.com/stock-share-price/3m-india-ltd/3MINDIA/523395/" target="_blank"><b>BSE</b></a> and <a data-tooltip="3MINDIA" href="https://www.nseindia.com/live_market/dynaContent/live_watch/get_quote/GetQuote.jsp?symbol=3MINDIA" target="_blank"><b>NSE</b></a>
+</li>
+<li class="four columns">
+<a data-tooltip="http://www.3m.com/in" href="http://www.3m.com/in" target="_blank"><b>Company Website</b></a>
+</li>
+<li class="four columns">
+    
+      Face Value:
+      
+      <i class="icon-rupee"></i>
+<b>10.00</b>
+</li>
+</ul>
+<div class="u-cf"></div>
+<div id="quick-ratios-placeholder"></div>
+<div class="flex-row flex-baseline">
+<label for="quick-ratio-search" style="margin-right: 1rem">Add Quick Ratio</label>
+<div>
+<input id="quick-ratio-search" placeholder="eg. Promoter holding" type="text"/>
+</div>
+<a aria-label="Manage Quick Ratios" class="button button-text" href="/user/quick_ratios/?next=/company/3MINDIA/">
+<i class="icon-cog"></i>
+</a>
+</div>
+</section>
+<section id="chart" style="margin-bottom: 2.5rem">
+<div class="flex-row" id="chart-menu">
+<div class="options">
+<button class="button-link" data-set-chart-days="30" type="button">1m</button>
+<button class="button-link" data-set-chart-days="90" type="button">3m</button>
+<button class="button-link" data-set-chart-days="180" type="button">6m</button>
+<button class="button-link active" data-set-chart-days="365" type="button">1Yr</button>
+<button class="button-link" data-set-chart-days="1095" type="button">3Yr</button>
+<button class="button-link" data-set-chart-days="1825" type="button">5Yr</button>
+<button class="button-link" data-set-chart-days="10000" type="button">Max</button>
+</div>
+</div>
+<div id="chart-area">
+<div class="invisible" id="chart-info">
+<div id="chart-crosshair"></div>
+<div id="chart-tooltip">
+<div>
+<i class="icon-rupee"></i>
+<span class="strong" id="chart-price"></span>
+</div>
+<div>
+          Volume: 
+          <span id="chart-volume"></span>
+</div>
+<div id="chart-delivery"></div>
+<div id="chart-date"></div>
+</div>
+</div>
+<div id="canvas-chart-holder"></div>
+</div>
+</section>
+<!-- 09 45 18 -->
+<section id="analysis" style="margin-bottom: 2.5rem">
+<div class="row row-full-width">
+<div class="six columns callout success">
+<div><b>Pros:</b></div>
+<div>Company has reduced debt.</div>
+<div>Company is virtually debt free.</div>
+<div>Company has good consistent profit growth of 42.70% over 5 years</div>
+</div>
+<div class="six columns callout warning">
+<div><b>Cons:</b></div>
+<div>Stock is trading at 13.16 times its book value</div>
+<div>Though the company is reporting repeated profits, it is not paying out dividend</div>
+<div>The company has delivered a poor growth of 10.18% over past five years.</div>
+</div>
+</div>
+</section>
+<section id="peers">
+<h2>
+      Peer Comparison
+      
+          <small class="sub">
+          Sector:
+          <a href="/company/compare/00000064/">
+              Trading
+          </a>
+          //
+          Industry:
+          <a href="/company/compare/00000064/00000101/">
+              Trading
+          </a>
+</small>
+</h2>
+<div id="peers-table-placeholder">Loading peers table ...</div>
+<div class="flex-row flex-baseline">
+<label for="search-peer-comparison" style="padding-right: 1rem">Detailed Comparison with:</label>
+<div>
+<input id="search-peer-comparison" placeholder="eg. Infosys" type="text"/>
+</div>
+</div>
+</section>
+<section id="quarters">
+<h2>
+  Quarterly Results
+  <small class="sub">
+    
+    Standalone Figures in Rs. Crores
+    /
+    <a class="" href="/company/3MINDIA/consolidated/#quarters">
+      View Consolidated
+    </a>
+</small>
+</h2>
+<div class="responsive-holder">
+<table class="data-table">
+<thead>
+<tr>
+<th class="text"></th>
+<th>Jun 2016</th>
+<th>Sep 2016</th>
+<th>Dec 2016</th>
+<th>Mar 2017</th>
+<th>Jun 2017</th>
+<th>Sep 2017</th>
+<th>Dec 2017</th>
+<th>Mar 2018</th>
+<th>Jun 2018</th>
+<th>Sep 2018</th>
+<th>Dec 2018</th>
+<th>Mar 2019</th>
+</tr>
+</thead>
+<tbody>
+<tr class="stripe">
+<td class="text">
+<button class="button-link show-schedules" onclick="Company.showSchedule('Sales', 'quarters', this)">
+            Sales
+          </button>
+</td>
+<td>597</td>
+<td>566</td>
+<td>576</td>
+<td>624</td>
+<td>664</td>
+<td>567</td>
+<td>646</td>
+<td>679</td>
+<td>701</td>
+<td>683</td>
+<td>736</td>
+<td>689</td>
+</tr>
+<tr class="">
+<td class="text">
+<button class="button-link show-schedules" onclick="Company.showSchedule('Expenses', 'quarters', this)">
+            Expenses
+          </button>
+</td>
+<td>504</td>
+<td>490</td>
+<td>511</td>
+<td>488</td>
+<td>565</td>
+<td>475</td>
+<td>519</td>
+<td>529</td>
+<td>546</td>
+<td>588</td>
+<td>579</td>
+<td>591</td>
+</tr>
+<tr class="stripe strong">
+<td class="text">
+          
+          Operating Profit
+          
+        </td>
+<td>93</td>
+<td>75</td>
+<td>65</td>
+<td>136</td>
+<td>99</td>
+<td>93</td>
+<td>127</td>
+<td>150</td>
+<td>154</td>
+<td>95</td>
+<td>157</td>
+<td>98</td>
+</tr>
+<tr class="">
+<td class="text">
+          
+          OPM %
+          
+        </td>
+<td>16%</td>
+<td>13%</td>
+<td>11%</td>
+<td>22%</td>
+<td>15%</td>
+<td>16%</td>
+<td>20%</td>
+<td>22%</td>
+<td>22%</td>
+<td>14%</td>
+<td>21%</td>
+<td>14%</td>
+</tr>
+<tr class="stripe">
+<td class="text">
+          
+          Other Income
+          
+        </td>
+<td>11</td>
+<td>11</td>
+<td>12</td>
+<td>16</td>
+<td>14</td>
+<td>9</td>
+<td>25</td>
+<td>8</td>
+<td>9</td>
+<td>15</td>
+<td>10</td>
+<td>2</td>
+</tr>
+<tr class="">
+<td class="text">
+          
+          Interest
+          
+        </td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="stripe">
+<td class="text">
+          
+          Depreciation
+          
+        </td>
+<td>12</td>
+<td>12</td>
+<td>12</td>
+<td>11</td>
+<td>11</td>
+<td>10</td>
+<td>10</td>
+<td>10</td>
+<td>10</td>
+<td>11</td>
+<td>10</td>
+<td>10</td>
+</tr>
+<tr class="strong">
+<td class="text">
+          
+          Profit before tax
+          
+        </td>
+<td>92</td>
+<td>74</td>
+<td>65</td>
+<td>138</td>
+<td>101</td>
+<td>92</td>
+<td>141</td>
+<td>146</td>
+<td>153</td>
+<td>99</td>
+<td>156</td>
+<td>89</td>
+</tr>
+<tr class="stripe">
+<td class="text">
+          
+          Tax %
+          
+        </td>
+<td>35%</td>
+<td>35%</td>
+<td>35%</td>
+<td>35%</td>
+<td>35%</td>
+<td>35%</td>
+<td>35%</td>
+<td>36%</td>
+<td>35%</td>
+<td>35%</td>
+<td>35%</td>
+<td>35%</td>
+</tr>
+<tr class="strong">
+<td class="text">
+          
+          Net Profit
+          
+        </td>
+<td>60</td>
+<td>48</td>
+<td>42</td>
+<td>90</td>
+<td>66</td>
+<td>60</td>
+<td>92</td>
+<td>93</td>
+<td>100</td>
+<td>64</td>
+<td>101</td>
+<td>58</td>
+</tr>
+<tr>
+<td class="text"></td>
+<td>
+<a aria-label="Quarter Notes" class="grey-300" data-open-in-modal="true" data-title="Notes for June 30, 2016" href="/company/notes/13/201606/sa/" style="color: grey">
+              Notes
+          </a>
+</td>
+<td>
+<a aria-label="Quarter Notes" class="grey-300" data-open-in-modal="true" data-title="Notes for Sept. 30, 2016" href="/company/notes/13/201609/sa/" style="color: grey">
+              Notes
+          </a>
+</td>
+<td>
+<a aria-label="Quarter Notes" class="grey-300" data-open-in-modal="true" data-title="Notes for Dec. 31, 2016" href="/company/notes/13/201612/sa/" style="color: grey">
+              Notes
+          </a>
+</td>
+<td>
+<a aria-label="Quarter Notes" class="grey-300" data-open-in-modal="true" data-title="Notes for March 31, 2017" href="/company/notes/13/201703/sa/" style="color: grey">
+              Notes
+          </a>
+</td>
+<td>
+<a aria-label="Quarter Notes" class="grey-300" data-open-in-modal="true" data-title="Notes for June 30, 2017" href="/company/notes/13/201706/sa/" style="color: grey">
+              Notes
+          </a>
+</td>
+<td>
+<a aria-label="Quarter Notes" class="grey-300" data-open-in-modal="true" data-title="Notes for Sept. 30, 2017" href="/company/notes/13/201709/sa/" style="color: grey">
+              Notes
+          </a>
+</td>
+<td>
+<a aria-label="Quarter Notes" class="grey-300" data-open-in-modal="true" data-title="Notes for Dec. 31, 2017" href="/company/notes/13/201712/sa/" style="color: grey">
+              Notes
+          </a>
+</td>
+<td>
+<a aria-label="Quarter Notes" class="grey-300" data-open-in-modal="true" data-title="Notes for March 31, 2018" href="/company/notes/13/201803/sa/" style="color: grey">
+              Notes
+          </a>
+</td>
+<td>
+<a aria-label="Quarter Notes" class="grey-300" data-open-in-modal="true" data-title="Notes for June 30, 2018" href="/company/notes/13/201806/sa/" style="color: grey">
+              Notes
+          </a>
+</td>
+<td>
+<a aria-label="Quarter Notes" class="grey-300" data-open-in-modal="true" data-title="Notes for Sept. 30, 2018" href="/company/notes/13/201809/sa/" style="color: grey">
+              Notes
+          </a>
+</td>
+<td>
+<a aria-label="Quarter Notes" class="grey-300" data-open-in-modal="true" data-title="Notes for Dec. 31, 2018" href="/company/notes/13/201812/sa/" style="color: grey">
+              Notes
+          </a>
+</td>
+<td>
+<a aria-label="Quarter Notes" class="grey-300" data-open-in-modal="true" data-title="Notes for March 31, 2019" href="/company/notes/13/201903/sa/" style="color: grey">
+              Notes
+          </a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="profit-loss">
+<h2>
+  Profit &amp; Loss
+  <small class="sub">
+    
+    Standalone Figures in Rs. Crores
+    /
+    <a class="" href="/company/3MINDIA/consolidated/#profit-loss">
+      View Consolidated
+    </a>
+</small>
+</h2>
+<div class="responsive-holder">
+<table class="data-table">
+<thead>
+<tr>
+<th class="text"></th>
+<th>Dec 2006</th>
+<th>Dec 2007</th>
+<th>Dec 2008</th>
+<th>Mar 2010</th>
+<th>Mar 2011</th>
+<th>Mar 2012</th>
+<th>Mar 2013</th>
+<th>Mar 2014</th>
+<th>Mar 2015</th>
+<th>Mar 2016</th>
+<th>Mar 2017</th>
+<th>Mar 2018</th>
+<th>TTM</th>
+</tr>
+</thead>
+<tbody>
+<tr class="stripe">
+<td class="text">
+<button class="button-link show-schedules" onclick="Company.showSchedule('Sales', 'profit-loss', this)">
+            Sales
+          </button>
+</td>
+<td>505</td>
+<td>608</td>
+<td>742</td>
+<td>1,087</td>
+<td>1,191</td>
+<td>1,405</td>
+<td>1,574</td>
+<td>1,742</td>
+<td>1,840</td>
+<td>2,140</td>
+<td>2,363</td>
+<td>2,556</td>
+<td>2,809</td>
+</tr>
+<tr class="">
+<td class="text">
+<button class="button-link show-schedules" onclick="Company.showSchedule('Expenses', 'profit-loss', this)">
+            Expenses
+          </button>
+</td>
+<td>425</td>
+<td>504</td>
+<td>654</td>
+<td>948</td>
+<td>1,035</td>
+<td>1,283</td>
+<td>1,463</td>
+<td>1,630</td>
+<td>1,636</td>
+<td>1,803</td>
+<td>1,994</td>
+<td>2,076</td>
+<td>2,304</td>
+</tr>
+<tr class="stripe strong">
+<td class="text">
+          
+          Operating Profit
+          
+        </td>
+<td>80</td>
+<td>105</td>
+<td>88</td>
+<td>138</td>
+<td>156</td>
+<td>122</td>
+<td>112</td>
+<td>112</td>
+<td>204</td>
+<td>337</td>
+<td>369</td>
+<td>480</td>
+<td>504</td>
+</tr>
+<tr class="">
+<td class="text">
+          
+          OPM %
+          
+        </td>
+<td>16%</td>
+<td>17%</td>
+<td>12%</td>
+<td>13%</td>
+<td>13%</td>
+<td>9%</td>
+<td>7%</td>
+<td>6%</td>
+<td>11%</td>
+<td>16%</td>
+<td>16%</td>
+<td>19%</td>
+<td>18%</td>
+</tr>
+<tr class="stripe">
+<td class="text">
+          
+          Other Income
+          
+        </td>
+<td>5</td>
+<td>8</td>
+<td>11</td>
+<td>20</td>
+<td>11</td>
+<td>5</td>
+<td>10</td>
+<td>19</td>
+<td>14</td>
+<td>18</td>
+<td>49</td>
+<td>44</td>
+<td>36</td>
+</tr>
+<tr class="">
+<td class="text">
+          
+          Interest
+          
+        </td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>4</td>
+<td>10</td>
+<td>15</td>
+<td>4</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="stripe">
+<td class="text">
+          
+          Depreciation
+          
+        </td>
+<td>6</td>
+<td>6</td>
+<td>7</td>
+<td>17</td>
+<td>17</td>
+<td>27</td>
+<td>36</td>
+<td>48</td>
+<td>50</td>
+<td>49</td>
+<td>47</td>
+<td>42</td>
+<td>42</td>
+</tr>
+<tr class="strong">
+<td class="text">
+          
+          Profit before tax
+          
+        </td>
+<td>78</td>
+<td>107</td>
+<td>91</td>
+<td>141</td>
+<td>148</td>
+<td>96</td>
+<td>75</td>
+<td>69</td>
+<td>165</td>
+<td>303</td>
+<td>369</td>
+<td>480</td>
+<td>497</td>
+</tr>
+<tr class="stripe">
+<td class="text">
+          
+          Tax %
+          
+        </td>
+<td>35%</td>
+<td>37%</td>
+<td>37%</td>
+<td>34%</td>
+<td>33%</td>
+<td>33%</td>
+<td>30%</td>
+<td>38%</td>
+<td>34%</td>
+<td>36%</td>
+<td>35%</td>
+<td>35%</td>
+<td></td>
+</tr>
+<tr class="strong">
+<td class="text">
+          
+          Net Profit
+          
+        </td>
+<td>50</td>
+<td>68</td>
+<td>57</td>
+<td>93</td>
+<td>99</td>
+<td>65</td>
+<td>52</td>
+<td>43</td>
+<td>108</td>
+<td>195</td>
+<td>241</td>
+<td>311</td>
+<td>323</td>
+</tr>
+<tr class="stripe">
+<td class="text">
+          
+          EPS in Rs
+          
+        </td>
+<td>44.74</td>
+<td>60.05</td>
+<td>50.98</td>
+<td>65.90</td>
+<td>87.67</td>
+<td>57.47</td>
+<td>46.40</td>
+<td>38.16</td>
+<td>96.17</td>
+<td>172.89</td>
+<td>213.72</td>
+<td>275.66</td>
+</tr>
+<tr class="">
+<td class="text">
+          
+          Dividend Payout %
+          
+        </td>
+<td>0%</td>
+<td>0%</td>
+<td>0%</td>
+<td>0%</td>
+<td>0%</td>
+<td>0%</td>
+<td>0%</td>
+<td>0%</td>
+<td>0%</td>
+<td>0%</td>
+<td>0%</td>
+<td>0%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sub">
+    * Sales is net of excise duty and discounts
+  </div>
+<div class="row">
+<table class="four columns ranges-table">
+<tr><th colspan="2">Compounded Sales Growth</th></tr>
+<tr><td>10 Years:</td><td>15.44%</td></tr>
+<tr><td>5 Years:</td><td>10.18%</td></tr>
+<tr><td>3 Years:</td><td>11.57%</td></tr>
+<tr><td>TTM:</td><td>9.88%</td></tr>
+</table>
+<table class="four columns ranges-table">
+<tr><th colspan="2">Compounded Profit Growth</th></tr>
+<tr><td>10 Years:</td><td>16.43%</td></tr>
+<tr><td>5 Years:</td><td>42.70%</td></tr>
+<tr><td>3 Years:</td><td>41.95%</td></tr>
+<tr><td>TTM:</td><td>4.01%</td></tr>
+</table>
+<table class="four columns ranges-table">
+<tr><th colspan="2">Return on Equity</th></tr>
+<tr><td>10 Years:</td><td>17.50%</td></tr>
+<tr><td>5 Years:</td><td>18.64%</td></tr>
+<tr><td>3 Years:</td><td>22.04%</td></tr>
+<tr><td>Last Year:</td><td>22.48%</td></tr>
+</table>
+</div>
+</section>
+<section id="balance-sheet">
+<h2>
+  Balance Sheet
+  <small class="sub">
+    
+    Standalone Figures in Rs. Crores
+    /
+    <a class="" href="/company/3MINDIA/consolidated/#balance-sheet">
+      View Consolidated
+    </a>
+</small>
+</h2>
+<div class="responsive-holder">
+<table class="data-table">
+<thead>
+<tr>
+<th class="text"></th>
+<th>Dec 2006</th>
+<th>Dec 2007</th>
+<th>Dec 2008</th>
+<th>Mar 2010</th>
+<th>Mar 2011</th>
+<th>Mar 2012</th>
+<th>Mar 2013</th>
+<th>Mar 2014</th>
+<th>Mar 2015</th>
+<th>Mar 2016</th>
+<th>Mar 2017</th>
+<th>Mar 2018</th>
+<th>Mar 2019</th>
+</tr>
+</thead>
+<tbody>
+<tr class="stripe">
+<td class="text">
+<button class="button-link show-schedules" onclick="Company.showSchedule('Share Capital', 'balance-sheet', this)">
+            Share Capital
+          </button>
+</td>
+<td>11</td>
+<td>11</td>
+<td>11</td>
+<td>11</td>
+<td>11</td>
+<td>11</td>
+<td>11</td>
+<td>11</td>
+<td>11</td>
+<td>11</td>
+<td>11</td>
+<td>11</td>
+<td>11</td>
+</tr>
+<tr class="">
+<td class="text">
+          
+          Reserves
+          
+        </td>
+<td>213</td>
+<td>279</td>
+<td>336</td>
+<td>429</td>
+<td>528</td>
+<td>593</td>
+<td>645</td>
+<td>688</td>
+<td>796</td>
+<td>977</td>
+<td>1,215</td>
+<td>1,525</td>
+<td>1,848</td>
+</tr>
+<tr class="stripe">
+<td class="text">
+          
+          Borrowings
+          
+        </td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>12</td>
+<td>76</td>
+<td>174</td>
+<td>121</td>
+<td>14</td>
+<td>11</td>
+<td>10</td>
+<td>9</td>
+<td>7</td>
+</tr>
+<tr class="">
+<td class="text">
+<button class="button-link show-schedules" onclick="Company.showSchedule('Other Liabilities', 'balance-sheet', this)">
+            Other Liabilities
+          </button>
+</td>
+<td>91</td>
+<td>110</td>
+<td>132</td>
+<td>174</td>
+<td>206</td>
+<td>252</td>
+<td>244</td>
+<td>286</td>
+<td>323</td>
+<td>430</td>
+<td>717</td>
+<td>610</td>
+<td>627</td>
+</tr>
+<tr class="stripe strong">
+<td class="text">
+          
+          Total Liabilities
+          
+        </td>
+<td>315</td>
+<td>400</td>
+<td>480</td>
+<td>614</td>
+<td>758</td>
+<td>933</td>
+<td>1,074</td>
+<td>1,107</td>
+<td>1,145</td>
+<td>1,429</td>
+<td>1,954</td>
+<td>2,156</td>
+<td>2,494</td>
+</tr>
+<tr class="">
+<td class="text">
+<button class="button-link show-schedules" onclick="Company.showSchedule('Fixed Assets', 'balance-sheet', this)">
+            Fixed Assets
+          </button>
+</td>
+<td>32</td>
+<td>57</td>
+<td>116</td>
+<td>141</td>
+<td>165</td>
+<td>290</td>
+<td>300</td>
+<td>418</td>
+<td>388</td>
+<td>349</td>
+<td>315</td>
+<td>285</td>
+<td>269</td>
+</tr>
+<tr class="stripe">
+<td class="text">
+          
+          CWIP
+          
+        </td>
+<td>12</td>
+<td>41</td>
+<td>27</td>
+<td>40</td>
+<td>94</td>
+<td>21</td>
+<td>121</td>
+<td>7</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>6</td>
+<td>10</td>
+</tr>
+<tr class="">
+<td class="text">
+          
+          Investments
+          
+        </td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>585</td>
+</tr>
+<tr class="stripe">
+<td class="text">
+<button class="button-link show-schedules" onclick="Company.showSchedule('Other Assets', 'balance-sheet', this)">
+            Other Assets
+          </button>
+</td>
+<td>270</td>
+<td>303</td>
+<td>337</td>
+<td>433</td>
+<td>498</td>
+<td>622</td>
+<td>653</td>
+<td>681</td>
+<td>756</td>
+<td>1,078</td>
+<td>1,636</td>
+<td>1,865</td>
+<td>1,629</td>
+</tr>
+<tr class="strong">
+<td class="text">
+          
+          Total Assets
+          
+        </td>
+<td>315</td>
+<td>400</td>
+<td>480</td>
+<td>614</td>
+<td>758</td>
+<td>933</td>
+<td>1,074</td>
+<td>1,107</td>
+<td>1,145</td>
+<td>1,429</td>
+<td>1,954</td>
+<td>2,156</td>
+<td>2,494</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="cash-flow">
+<h2>
+  Cash Flows
+  <small class="sub">
+    
+    Standalone Figures in Rs. Crores
+    /
+    <a class="" href="/company/3MINDIA/consolidated/#cash-flow">
+      View Consolidated
+    </a>
+</small>
+</h2>
+<div class="responsive-holder">
+<table class="data-table">
+<thead>
+<tr>
+<th class="text"></th>
+<th>Dec 2006</th>
+<th>Dec 2007</th>
+<th>Dec 2008</th>
+<th>Mar 2010</th>
+<th>Mar 2011</th>
+<th>Mar 2012</th>
+<th>Mar 2013</th>
+<th>Mar 2014</th>
+<th>Mar 2015</th>
+<th>Mar 2016</th>
+<th>Mar 2017</th>
+<th>Mar 2018</th>
+</tr>
+</thead>
+<tbody>
+<tr class="stripe">
+<td class="text">
+<button class="button-link show-schedules" onclick="Company.showSchedule('Cash from Operating Activity', 'cash-flow', this)">
+            Cash from Operating Activity
+          </button>
+</td>
+<td>41</td>
+<td>49</td>
+<td>1</td>
+<td>106</td>
+<td>53</td>
+<td>21</td>
+<td>64</td>
+<td>120</td>
+<td>177</td>
+<td>261</td>
+<td>365</td>
+<td>29</td>
+</tr>
+<tr class="">
+<td class="text">
+<button class="button-link show-schedules" onclick="Company.showSchedule('Cash from Investing Activity', 'cash-flow', this)">
+            Cash from Investing Activity
+          </button>
+</td>
+<td>-17</td>
+<td>-53</td>
+<td>-44</td>
+<td>-52</td>
+<td>-119</td>
+<td>-71</td>
+<td>-141</td>
+<td>-47</td>
+<td>-4</td>
+<td>1</td>
+<td>12</td>
+<td>18</td>
+</tr>
+<tr class="stripe">
+<td class="text">
+<button class="button-link show-schedules" onclick="Company.showSchedule('Cash from Financing Activity', 'cash-flow', this)">
+            Cash from Financing Activity
+          </button>
+</td>
+<td>-0</td>
+<td>-0</td>
+<td>-0</td>
+<td>-0</td>
+<td>12</td>
+<td>53</td>
+<td>83</td>
+<td>-73</td>
+<td>-119</td>
+<td>-5</td>
+<td>-4</td>
+<td>-2</td>
+</tr>
+<tr class="strong">
+<td class="text">
+          
+          Net Cash Flow
+          
+        </td>
+<td>23</td>
+<td>-4</td>
+<td>-44</td>
+<td>53</td>
+<td>-55</td>
+<td>3</td>
+<td>6</td>
+<td>0</td>
+<td>54</td>
+<td>257</td>
+<td>373</td>
+<td>45</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="ratios">
+<h2>
+  Ratios
+  <small class="sub">
+    
+    Standalone Figures in Rs. Crores
+    /
+    <a class="" href="/company/3MINDIA/consolidated/#ratios">
+      View Consolidated
+    </a>
+</small>
+</h2>
+<div class="responsive-holder">
+<table class="data-table">
+<thead>
+<tr>
+<th class="text"></th>
+<th>Dec 2006</th>
+<th>Dec 2007</th>
+<th>Dec 2008</th>
+<th>Mar 2010</th>
+<th>Mar 2011</th>
+<th>Mar 2012</th>
+<th>Mar 2013</th>
+<th>Mar 2014</th>
+<th>Mar 2015</th>
+<th>Mar 2016</th>
+<th>Mar 2017</th>
+<th>Mar 2018</th>
+</tr>
+</thead>
+<tbody>
+<tr class="stripe">
+<td class="text">
+          
+          ROCE %
+          
+        </td>
+<td>39%</td>
+<td>42%</td>
+<td>28%</td>
+<td>36%</td>
+<td>30%</td>
+<td>16%</td>
+<td>11%</td>
+<td>10%</td>
+<td>21%</td>
+<td>34%</td>
+<td>33%</td>
+<td>35%</td>
+</tr>
+<tr class="">
+<td class="text">
+          
+          Debtor Days
+          
+        </td>
+<td>45</td>
+<td>50</td>
+<td>53</td>
+<td>49</td>
+<td>60</td>
+<td>61</td>
+<td>62</td>
+<td>56</td>
+<td>49</td>
+<td>54</td>
+<td>63</td>
+<td>76</td>
+</tr>
+<tr class="stripe">
+<td class="text">
+          
+          Inventory Turnover
+          
+        </td>
+<td>7.99</td>
+<td>9.10</td>
+<td>8.56</td>
+<td>9.49</td>
+<td>8.45</td>
+<td>7.54</td>
+<td>7.17</td>
+<td>7.21</td>
+<td>6.65</td>
+<td>7.28</td>
+<td>7.57</td>
+<td>7.53</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="documents">
+<div class="row">
+<div class="six columns">
+<h3>Recent Announcements</h3>
+<ul class="items">
+<li>
+<a href="https://www.bseindia.com/corporates/anndet_new.aspx?newsid=973df1ea-bd7e-41ad-a90d-a8c8029473a7" rel="noopener noreferrer" target="_blank">
+      Regulation 39(3) Of The SEBI (LODR) Regulations, 2015
+    </a>
+<span class="sub">July 10, 2019</span>
+</li>
+<li>
+<a href="https://www.bseindia.com/corporates/anndet_new.aspx?newsid=17e82c27-42f1-4531-bd74-b7a62cbe1944" rel="noopener noreferrer" target="_blank">
+      Statement Of Investor Complaints For The Quarter Ended June 2019
+    </a>
+<span class="sub">July 10, 2019</span>
+</li>
+<li>
+<a href="https://www.bseindia.com/corporates/anndet_new.aspx?newsid=aa8709aa-ab73-4c5e-aa26-6be8b679fcab" rel="noopener noreferrer" target="_blank">
+      Regulation 39(3) Of The SEBI(LODR) Regulations, 2015
+    </a>
+<span class="sub">July 8, 2019</span>
+</li>
+<li>
+<a href="https://www.bseindia.com/corporates/anndet_new.aspx?newsid=062bc3b9-48cb-48ca-98ef-88c30fe68778" rel="noopener noreferrer" target="_blank">
+      Disclosure Of Rpts Pursuant To Reg. 23(9) Of SEBI (LODR) Regulations, 2015
+    </a>
+<span class="sub">June 27, 2019</span>
+</li>
+<li>
+<a href="https://www.bseindia.com/corporates/anndet_new.aspx?newsid=21140dc5-bfe3-4431-a9fd-54db810c9001" rel="noopener noreferrer" target="_blank">
+      Regulation 39(3) Of The SEBI (LODR) Regulations, 2015
+    </a>
+<span class="sub">June 24, 2019</span>
+</li>
+</ul>
+<a class="button" href="https://www.bseindia.com/corporates/ann.html?scrip=523395" rel="noopener noreferrer" target="_blank">
+<i class="icon-right-open"></i>
+        View all announcements
+      </a>
+</div>
+<div class="three columns">
+<h3>Annual Reports</h3>
+<ul class="items">
+<li>
+<a href="http://www.bseindia.com/bseplus/annualreport/523395/5233950318.pdf" rel="noopener noreferrer" target="_blank">
+      Financial Year 2018
+    </a>
+<span class="sub">from bse</span>
+</li>
+<li>
+<a href="http://www.bseindia.com/bseplus/annualreport/523395/5233950317.pdf" rel="noopener noreferrer" target="_blank">
+      Financial Year 2017
+    </a>
+<span class="sub">from bse</span>
+</li>
+<li>
+<a href="http://www.bseindia.com/bseplus/annualreport/523395/5233950316.pdf" rel="noopener noreferrer" target="_blank">
+      Financial Year 2016
+    </a>
+<span class="sub">from bse</span>
+</li>
+<li>
+<a href="http://www.bseindia.com/bseplus/annualreport/523395/5233950315.pdf" rel="noopener noreferrer" target="_blank">
+      Financial Year 2015
+    </a>
+<span class="sub">from bse</span>
+</li>
+<li>
+<a href="http://www.bseindia.com/bseplus/annualreport/523395/5233950314.pdf" rel="noopener noreferrer" target="_blank">
+      Financial Year 2014
+    </a>
+<span class="sub">from bse</span>
+</li>
+<li>
+<a href="http://www.bseindia.com/bseplus/annualreport/523395/5233950313.pdf" rel="noopener noreferrer" target="_blank">
+      Financial Year 2013
+    </a>
+<span class="sub">from bse</span>
+</li>
+<li>
+<a href="http://nseindia.com/annual_reports/AR_253_3MINDIA_2012_2013_03072013120849.zip" rel="noopener noreferrer" target="_blank">
+      Financial Year 2013
+    </a>
+<span class="sub">from nse</span>
+</li>
+<li>
+<a href="http://www.bseindia.com/bseplus/annualreport/523395/5233950312.pdf" rel="noopener noreferrer" target="_blank">
+      Financial Year 2012
+    </a>
+<span class="sub">from bse</span>
+</li>
+<li>
+<a href="http://www.bseindia.com/bseplus/annualreport/523395/5233950311.pdf" rel="noopener noreferrer" target="_blank">
+      Financial Year 2011
+    </a>
+<span class="sub">from bse</span>
+</li>
+<li>
+<a href="http://nseindia.com/annual_reports/AR_3MINDIA_2010_2011_18072011120000.zip" rel="noopener noreferrer" target="_blank">
+      Financial Year 2011
+    </a>
+<span class="sub">from nse</span>
+</li>
+<li>
+<a href="http://www.bseindia.com/bseplus/annualreport/523395/5233950310.pdf" rel="noopener noreferrer" target="_blank">
+      Financial Year 2010
+    </a>
+<span class="sub">from bse</span>
+</li>
+<li>
+<a href="http://nseindia.com/annual_reports/AR_3MINDIA_2009_2010_18082010121500.zip" rel="noopener noreferrer" target="_blank">
+      Financial Year 2010
+    </a>
+<span class="sub">from nse</span>
+</li>
+</ul>
+</div>
+<div class="three columns">
+<h3>Credit Ratings</h3>
+<ul class="items">
+<li>
+<a href="https://www.crisil.com/mnt/winshare/Ratings/RatingList/RatingDocs/_M_India_Limited_January_19_2015_RR.html" rel="noopener noreferrer" target="_blank">
+      3M India Limited: Rating Withdrawn
+    </a>
+<span class="sub">crisil</span>
+</li>
+</ul>
+</div>
+</div>
+</section>
+</main>
+<footer class="flex-column container no-print sub" id="footer">
+<div>
+<a href="/home/">Home</a>
+<a class="margin-left" href="/guides/about-us/">About Us</a>
+<a class="margin-left" href="/support/">Support</a>
+<a class="margin-left" href="/gold/">Screener Gold</a>
+<a class="margin-left" href="/guides/privacy/">Privacy</a>
+<a class="margin-left" href="/guides/terms/">Terms</a>
+</div>
+<div>
+      Data feed provided by C-MOTS Internet Technologies Pvt Ltd.
+    </div>
+<div>
+      © 2019 Mittal Analytics Private Ltd.<br/>
+      Made with <i class="icon-heart red"></i> in India.
+    </div>
+</footer>
+<!-- Important JS (which provide global objects)- check below too -->
+<script src="/static/js/polyfill.b6449f0177a2.js"></script>
+<script src="/static/js/dialog-polyfill.min.665dc0dc877d.js"></script>
+<script src="/static/js/utils.fd0f34397ef0.js"></script>
+<script src="/static/js/modal.1d52fa4828de.js"></script>
+<script src="/static/js/typeahead.dd9d44b35c86.js"></script>
+<!-- Independent JS scripts for page interactions -->
+<script src="/static/js/navbar.89fcb2ee2f00.js"></script>
+<script src="/static/js/company.search.6138288ab618.js"></script>
+<script src="/static/js/scroll-aid.257ab05ee0ce.js"></script>
+<script src="/static/js/company.customisation.6ab1c379e4cf.js"></script>
+<script src="/static/js/Chart.bundle.min.857fc46bdca5.js"></script>
+<script src="/static/js/chart.b492185b4cd5.js"></script>
+<!-- 
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/service-worker.js').then(function (registration) {
+          // Registration was successful
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }, function (err) {
+          // registration failed :(
+          console.log('ServiceWorker registration failed: ', err);
+        });
+      });
+    }
+  </script>
+   -->
+</body>
+</html>
