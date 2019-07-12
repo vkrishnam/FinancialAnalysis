@@ -103,7 +103,7 @@ def findCashFlow_Screener(page_content):
     return get_table_simple(ratios_table, is_table_tag=True)
 
 def getPageContent_Screener(symbol):
-    str1= "https://www.screener.in/company/" + symbol
+    str1= "https://www.screener.in/company/" + symbol +"/consolidated/"
     page_response = requests.get(str1, timeout=240)
     page_content = BeautifulSoup(page_response.content, "html.parser")
     return page_content
