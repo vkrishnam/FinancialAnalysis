@@ -325,16 +325,16 @@ def doesSalesDataMeetCriteria(sales_info, threshold):
     #print(roce_info)
     return all(i >= threshold for i in sales_info)
 
-def checkForCoffeeCanInvestingStocks(dictLargeCap, roceThreshold=15, salesThreshold=10):
+def checkForCoffeeCanInvestingStocks(dictCap, cap='Large',  roceThreshold=15, salesThreshold=10):
     coffeeCanPortfolio = []
-    largeCapList = list(dictLargeCap.keys())
+    largeCapList = list(dictCap.keys())
     #print(largeCapList)
-    print("Total LargeCap Stocks: ", len(largeCapList))
+    print("Total ",cap ," Stocks: ", len(largeCapList))
     for i in range(0, len(largeCapList),1):
         #print(i)
         #print(largeCapList[i])
         symbol = largeCapList[i]
-        stockInfo = getDataForTheStock(dictLargeCap, symbol)
+        stockInfo = getDataForTheStock(dictCap, symbol)
         #print(stockInfo)
         roce_info = getROCEForTheStock(stockInfo)
         #print(roce_info)
@@ -363,8 +363,16 @@ def printPortfolio(port):
 #pprint(getAllTheStocksInfo('MID', True))
 #pprint(getAllTheStocksInfo('SMALL', True))
 
-[dictLargeCap, dictMidCap, dictSmallCap] =  getAllCapStocks(True)
+[dictLargeCap, dictMidCap, dictSmallCap] =  getAllCapStocks(False)
    
-ccp = checkForCoffeeCanInvestingStocks(dictLargeCap, 15, 1)
+ccp = checkForCoffeeCanInvestingStocks(dictLargeCap, 'Large', 15, 10)
+print("Number of CCP Stocks :", len(ccp))
+printPortfolio(ccp)
+
+ccp = checkForCoffeeCanInvestingStocks(dictMidCap, 'Mid', 15, 10)
+print("Number of CCP Stocks :", len(ccp))
+printPortfolio(ccp)
+
+ccp = checkForCoffeeCanInvestingStocks(dictSmallCap, 'Small', 15, 10)
 print("Number of CCP Stocks :", len(ccp))
 printPortfolio(ccp)
