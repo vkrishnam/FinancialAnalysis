@@ -9,6 +9,7 @@ from WebScrapperRoutines import findPandL
 from WebScrapperRoutines import findBalanceSheet
 from WebScrapperRoutines import findCashFlow
 from WebScrapperRoutines import getPageContent_Screener
+from statistics import mean 
 
 import os.path
 from os import path
@@ -319,13 +320,17 @@ def getROCEForTheStock(stockInfo):
 
 def doesRoceDataMeetCriteria(roce_info, threshold):
     #print(roce_info)
+    if len(roce_info) == 0:
+        return False
     return all(i >= threshold for i in roce_info)
 
 def doesSalesDataMeetCriteria(sales_info, threshold):
     #print(roce_info)
+    if len(sales_info) == 0:
+        return False
     return all(i >= threshold for i in sales_info)
 
-def checkForCoffeeCanInvestingStocks(dictCap, cap='Large',  roceThreshold=15, salesThreshold=10):
+def checkForCoffeeCanInvestingStocks(dictCap, cap='Large',  roceThreshold=15, salesThreshold=10, mask1=False, mask2=False):
     coffeeCanPortfolio = []
     largeCapList = list(dictCap.keys())
     #print(largeCapList)
@@ -341,22 +346,35 @@ def checkForCoffeeCanInvestingStocks(dictCap, cap='Large',  roceThreshold=15, sa
         isRoceCriteriaMatch = doesRoceDataMeetCriteria(roce_info, roceThreshold)
         sales_info = getSalesGrowthForTheStock(stockInfo)
         isSalesCriteriaMatch = doesSalesDataMeetCriteria(sales_info, salesThreshold)
-        if isRoceCriteriaMatch and isSalesCriteriaMatch:
+        if (isRoceCriteriaMatch or mask1) and (isSalesCriteriaMatch or mask2):
             stockInfo.insert(0, symbol)
+            stockInfo.append(Average(roce_info))
+            stockInfo.append(Average(sales_info))
+            #print(roce_info)
+            #print(sales_info)
             coffeeCanPortfolio.append(stockInfo)
     
     return coffeeCanPortfolio
 
+def Average(lst): 
+    #print(lst)
+    #print(type(lst))
+    #print(sum(lst))
+    #print(len(lst))
+    return sum(lst) / len(lst) 
+
 def printPortfolio(port):
-    print("---------------------------------------------------------------")
+    print("------------------------------------------------------------------")
     print("                       Portfolio ")
-    print("---------------------------------------------------------------")
-    print("%4s %10s %25s"%("No","Symbol", "Name"))
+    print("------------------------------------------------------------------")
+    print("%4s %15s %45s %10s %10s"%("No","Symbol", "Name", "ROCE % (Avg)", "Sales Gr % (Avg)"))
     cnt = 1
     for i in port:
-        print("%4s %10s %25s"%(cnt, i[0], i[1]))
+        #print(i)
+        #print(i[7])
+        print("%4s %15s %45s %8.2f %8.2f"%(cnt, i[0], i[1], i[8], i[9]))
         cnt = cnt+1
-    print("---------------------------------------------------------------")
+    print("------------------------------------------------------------------")
     return
 ### USE THIS TO BUILD THE DATABASE        
 #pprint(getAllTheStocksInfo('LARGE', True))
@@ -365,14 +383,14 @@ def printPortfolio(port):
 
 [dictLargeCap, dictMidCap, dictSmallCap] =  getAllCapStocks(False)
    
-ccp = checkForCoffeeCanInvestingStocks(dictLargeCap, 'Large', 15, 10)
+ccp = checkForCoffeeCanInvestingStocks(dictLargeCap, 'Large', 15, 8, False, True)
 print("Number of CCP Stocks :", len(ccp))
 printPortfolio(ccp)
 
-ccp = checkForCoffeeCanInvestingStocks(dictMidCap, 'Mid', 15, 10)
+ccp = checkForCoffeeCanInvestingStocks(dictMidCap, 'Mid', 15, 8, False, True)
 print("Number of CCP Stocks :", len(ccp))
 printPortfolio(ccp)
 
-ccp = checkForCoffeeCanInvestingStocks(dictSmallCap, 'Small', 15, 10)
+ccp = checkForCoffeeCanInvestingStocks(dictSmallCap, 'Small', 15, 8, False, True)
 print("Number of CCP Stocks :", len(ccp))
 printPortfolio(ccp)
