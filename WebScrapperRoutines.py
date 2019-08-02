@@ -3,9 +3,9 @@ import pandas as pd # pandas for dataframe based data processing and CSV file I/
 
 import requests # for http requests
 from bs4 import BeautifulSoup # for html parsing and scraping
-from fastnumbers import isfloat 
-from fastnumbers import fast_float
-from multiprocessing.dummy import Pool as ThreadPool 
+#from fastnumbers import isfloat
+#from fastnumbers import fast_float
+from multiprocessing.dummy import Pool as ThreadPool
 import bs4
 
 import matplotlib.pyplot as plt
@@ -19,7 +19,7 @@ def get_table_simple(table,is_table_tag=True):
     elems = table.find_all('tr') if is_table_tag else get_children(table)
     table_data = list()
     for row in elems:
-        
+
         row_data = list()
         row_elems = get_children(row)
         for elem in row_elems:
@@ -30,7 +30,7 @@ def get_table_simple(table,is_table_tag=True):
             row_data.append(text)
         table_data.append(row_data)
     return table_data
-    
+
 def get_children(html_content):
     children = list()
     for item in html_content.children:
@@ -38,21 +38,21 @@ def get_children(html_content):
             continue
         if type(item)==bs4.element.Tag or len(str(item).replace("\n","").strip())>0:
             children.append(item)
-        
+
     return children
 
-def ffloat(string):
-    if string is None:
-        return np.nan
-    if type(string)==float or type(string)==np.float64:
-        return string
-    if type(string)==int or type(string)==np.int64:
-        return string
-    return fast_float(string.split(" ")[0].replace(',','').replace('%',''),
-                      default=np.nan)
+#def ffloat(string):
+#    if string is None:
+#        return np.nan
+#    if type(string)==float or type(string)==np.float64:
+#        return string
+#    if type(string)==int or type(string)==np.int64:
+#        return string
+#    return fast_float(string.split(" ")[0].replace(',','').replace('%',''),
+#                      default=np.nan)
 
-def ffloat_list(string_list):
-    return list(map(ffloat,string_list))
+#def ffloat_list(string_list):
+#    return list(map(ffloat,string_list))
 
 def remove_multiple_spaces(string):
     if type(string)==str:
@@ -65,7 +65,7 @@ def request_with_check(url):
     if status>299:
         raise AssertionError("page content not found, status: %s"%status)
     return page_response
-    
+
 def findFullName_Screener(page_content):
     tag = page_content.find("h1",attrs={'class':"no-margin"})
     return tag.string
@@ -111,7 +111,7 @@ def getPageContent_Screener(symbol):
 def findFullDescription(page_content, symbol):
     #page_content = getPageContent_Screener(symbol)
     return findFullDescription_Screener(page_content)
-    
+
 def findFullName(page_content, symbol):
     #page_content = getPageContent_Screener(symbol)
     return findFullName_Screener(page_content)

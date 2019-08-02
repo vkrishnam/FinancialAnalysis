@@ -9,7 +9,7 @@ from WebScrapperRoutines import findPandL
 from WebScrapperRoutines import findBalanceSheet
 from WebScrapperRoutines import findCashFlow
 from WebScrapperRoutines import getPageContent_Screener
-from statistics import mean 
+from statistics import mean
 
 import os.path
 from os import path
@@ -35,14 +35,14 @@ def getAllTheLargeCapStocks(overrule=False):
         #Return the dict
         if not overrule:
             return dictLargeCap
-        
+
 
     #listOfNse = getListOfNseStocks(verbose=False)
     listOfStocks = list(getListOfNseStocks(verbose=False).keys())
     leng = len(listOfStocks)
     dictLargeCap = {}
     #print("Range : ", leng)
-    
+
     for i in range(1,leng,1):
         stock = listOfStocks[i]
         page_content = getPageContent_Screener(stock)
@@ -66,12 +66,12 @@ def getAllTheLargeCapStocks(overrule=False):
         cashFlow = findCashFlow(page_content, stock)
         if isLargeCap:
             dictLargeCap[symbol] = [fullName, desc, marketCap, pAndL, balanceSheet, cashFlow, ratios]
-    
+
     targetFile = open('dictLargeCap.txt', 'w')
     targetFile.write(str(dictLargeCap))
-    
+
     return dictLargeCap
-    
+
 
 def getAllTheSmallCapStocks(overrule=False):
     if path.exists('dictSmallCap.txt'):
@@ -82,14 +82,14 @@ def getAllTheSmallCapStocks(overrule=False):
         #Return the dict
         if not overrule:
             return dictSmallCap
-        
+
 
     #listOfNse = getListOfNseStocks(verbose=False)
     listOfStocks = list(getListOfNseStocks(verbose=False).keys())
     leng = len(listOfStocks)
     dictSmallCap = {}
     #print("Range : ", leng)
-    
+
     for i in range(1,leng,1):
         stock = listOfStocks[i]
         page_content = getPageContent_Screener(stock)
@@ -113,10 +113,10 @@ def getAllTheSmallCapStocks(overrule=False):
         print("Is Small Cap :", isSmallCap)
         if isSmallCap:
             dictSmallCap[symbol] = [fullName, desc, marketCap, pAndL, balanceSheet, cashFlow, ratios]
-    
+
     targetFile = open('dictSmallCap.txt', 'w')
     targetFile.write(str(dictSmallCap))
-    
+
     return dictSmallCap
 
 def getAllTheMidCapStocks(overrule=False):
@@ -128,14 +128,14 @@ def getAllTheMidCapStocks(overrule=False):
         #Return the dict
         if not overrule:
             return dictMidCap
-        
+
 
     #listOfNse = getListOfNseStocks(verbose=False)
     listOfStocks = list(getListOfNseStocks(verbose=False).keys())
     leng = len(listOfStocks)
     dictMidCap = {}
     #print("Range : ", leng)
-    
+
     for i in range(1,leng,1):
         stock = listOfStocks[i]
         page_content = getPageContent_Screener(stock)
@@ -159,10 +159,10 @@ def getAllTheMidCapStocks(overrule=False):
         print("Is Mid Cap :", isMidCap)
         if isMidCap:
             dictMidCap[symbol] = [fullName, desc, marketCap, pAndL, balanceSheet, cashFlow, ratios]
-    
+
     targetFile = open('dictMidCap.txt', 'w')
     targetFile.write(str(dictMidCap))
-    
+
     return dictMidCap
 
 
@@ -194,7 +194,7 @@ def getAllCapStocks(overrule=False):
     else:
         dictLargeCap = {}
         needLargeCap = True
-     
+
     if( (not needLargeCap) and (not needMidCap) and (not needSmallCap) ):
         return [ dictLargeCap, dictMidCap, dictSmallCap]
 
@@ -202,7 +202,7 @@ def getAllCapStocks(overrule=False):
     listOfStocks = list(getListOfNseStocks(verbose=False).keys())
     leng = len(listOfStocks)
     #print("Range : ", leng)
-    
+
     for i in range(1,leng,1):
         stock = listOfStocks[i]
         page_content = getPageContent_Screener(stock)
@@ -234,7 +234,7 @@ def getAllCapStocks(overrule=False):
             dictSmallCap[symbol] = [fullName, desc, marketCap, pAndL, balanceSheet, cashFlow, ratios]
         if isLargeCap and  needLargeCap:
             dictLargeCap[symbol] = [fullName, desc, marketCap, pAndL, balanceSheet, cashFlow, ratios]
-    
+
     if needMidCap:
         targetFile = open('dictMidCap.txt', 'w')
         targetFile.write(str(dictMidCap))
@@ -244,7 +244,7 @@ def getAllCapStocks(overrule=False):
     if needLargeCap:
         targetFile = open('dictLargeCap.txt', 'w')
         targetFile.write(str(dictLargeCap))
-    
+
     return [dictLargeCap,dictMidCap,dictSmallCap]
 
 
@@ -260,10 +260,10 @@ def getAllTheStocksInfo(cap='LARGE', force=False):
 def getDataForTheStock(dictOfStocks, symbol):
     return dictOfStocks[symbol]
 
-    
+
 def getSalesForTheStock(stockInfo):
     table = stockInfo[3]
-    frame = pd.DataFrame(table)    
+    frame = pd.DataFrame(table)
     lol = frame.values.tolist()
     temp =  lol[1][1:]
     for i in range(0,len(temp),1):
@@ -288,14 +288,14 @@ def getSalesGrowthForTheStock(stockInfo):
             percentage = 0.0
         sales_growth.append(percentage)
     return sales_growth
-    
+
 
 def getROCEForTheStock(stockInfo):
     table = stockInfo[6]
     #print(table)
     #table[0].insert(0,'None')
     #print(table)
-    frame = pd.DataFrame(table)    
+    frame = pd.DataFrame(table)
     #print(frame)
     lol = frame.values.tolist()
     temp =  lol[1][1:]
@@ -353,15 +353,15 @@ def checkForCoffeeCanInvestingStocks(dictCap, cap='Large',  roceThreshold=15, sa
             #print(roce_info)
             #print(sales_info)
             coffeeCanPortfolio.append(stockInfo)
-    
+
     return coffeeCanPortfolio
 
-def Average(lst): 
+def Average(lst):
     #print(lst)
     #print(type(lst))
     #print(sum(lst))
     #print(len(lst))
-    return sum(lst) / len(lst) 
+    return sum(lst) / len(lst)
 
 def printPortfolio(port):
     print("------------------------------------------------------------------")
@@ -376,13 +376,13 @@ def printPortfolio(port):
         cnt = cnt+1
     print("------------------------------------------------------------------")
     return
-### USE THIS TO BUILD THE DATABASE        
+### USE THIS TO BUILD THE DATABASE
 #pprint(getAllTheStocksInfo('LARGE', True))
 #pprint(getAllTheStocksInfo('MID', True))
 #pprint(getAllTheStocksInfo('SMALL', True))
 
 [dictLargeCap, dictMidCap, dictSmallCap] =  getAllCapStocks(False)
-   
+
 ccp = checkForCoffeeCanInvestingStocks(dictLargeCap, 'Large', 15, 8, False, True)
 print("Number of CCP Stocks :", len(ccp))
 printPortfolio(ccp)
