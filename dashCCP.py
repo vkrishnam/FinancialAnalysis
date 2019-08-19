@@ -6,10 +6,16 @@ from getAllTheLargeCapStocks import checkForCoffeeCanInvestingStocks
 from getAllTheLargeCapStocks import getAllTheLargeCapStocks
 from getAllTheLargeCapStocks import getAllTheMidCapStocks
 from getAllTheLargeCapStocks import getAllTheSmallCapStocks
-from dash.dependencies import Input, Output
+from dash.dependencies import Input, Output, State
 import pandas as pd
 import plotly.graph_objs as go
 import gc
+import json
+from nsepy import get_history
+from datetime import date
+import datetime
+import numpy as np
+
 
 semaphoreVar = 1
 scale_factor = 5000
@@ -35,6 +41,7 @@ colors = {
     'text': '#7FDBFF'
 }
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+server = app.server
 [dictLargeCap, dictMidCap, dictSmallCap] =  getAllCapStocks(False)
 g_roce_valuee = 15
 g_rev_valuee = 8
@@ -67,9 +74,10 @@ g_choice = 'L'
 
 
 app.layout = html.Div([
-    html.H1('Coffee Can Investing',id='Heading',style={
+    html.H1('Coffee Can Investing Dashboard',id='Heading',style={
             'textAlign': 'center',
-            'color': colors['title-text']
+            'color': colors['title-text'],
+            'font-size':25
         }),
     dcc.Markdown(children=markdown_text),
     dcc.Tabs(id="tabs", value='tab-1', children=[
@@ -112,7 +120,20 @@ app.layout = html.Div([
                     html.Hr(),
                     html.Button('Analyze & Update Charts', id='button'),
                     html.Hr(),
-                    dcc.Graph(id='indicator-graphic')
+                    dcc.Tabs(id="graphtabs", value='tab-1', children=[
+                            dcc.Tab(label='ScatterPlot', value='grph-tab-1', style={
+                                'textAlign': 'center',
+                                'color': colors['text'],
+                                'font-size': '30px'
+                            },
+                            children = html.Div([html.Div(dcc.Graph(id='indicator-graphic'),style={'width':'60%', 'float':'left'}),dcc.Markdown(id='hover-data', style={'paddingTop':35,'font-size':20,'display':'inline-block'}),html.Hr(),html.Div(dcc.Graph(id='sub-indicator-graphic'),style={'width':'30%', 'float':'right','paddingTop':20})])),
+                            dcc.Tab(label='BarCharts', value='grph-tab-2', style={
+                                'textAlign': 'center',
+                                'color': colors['text'],
+                                'font-size': '30px'
+                            },
+                            children = html.Div([html.Div(dcc.Graph(id='indicator-graphic-2'),style={'width':'60%', 'float':'left'}),dcc.Markdown(id='hover-data-2', style={'paddingTop':35,'font-size':20,'display':'inline-block'}),html.Div(dcc.Graph(id='sub-indicator-graphic-2'),style={'width':'30%', 'float':'right'})]))
+                            ])
                     ])
                 ),
         dcc.Tab(label='Data Mining', value='tab-2', style={
@@ -134,62 +155,175 @@ app.layout = html.Div([
     html.Div(id='tabs-content')
 ])
 
-'''
-@app.callback(Output('tab-1-2-content', 'children'), [Input('radio-tab1', 'value'),Input('ROCE-Slider', 'value'),Input('RevenueGrowth-Slider', 'value')])
-def render_button1(choice,roce_valuee,rev_valuee):
-    g_choice = choice
-    g_roce_valuee = roce_valuee
-    g_rev_valuee = rev_valuee
-    return html.Div([
-        html.H3('Please Click the bellow Button for new Analysis as parameters/choices have been modified.')
-        ],style={'font-size': '20px', 'color':'red'})
+@app.callback(
+    Output('hover-data-2', 'children'),
+    [Input('indicator-graphic-2', 'hoverData')])
+def callback_image(hoverData):
+    global df_portfolio
+    v_index = hoverData['points'][0]['pointIndex']
+    stats = """
+        Symbol : **{}**    
+        FullName : **{}**   
+        MarketCap INR(Cr) : **{}**       
+        """.format(df_portfolio.iloc[v_index]['Symbol'],
+            df_portfolio.iloc[v_index]['FullName'],
+            df_portfolio.iloc[v_index]['MarketCap'])
+    return stats
 
-'''
+@app.callback(
+    Output('hover-data', 'children'),
+    [Input('indicator-graphic', 'hoverData')])
+def callback_image(hoverData):
+    global df_portfolio
+    v_index = hoverData['points'][0]['pointIndex']
+    stats = """
+        Symbol : **{}**    
+        FullName : **{}**   
+        MarketCap INR(Cr) : **{}**       
+        """.format(df_portfolio.iloc[v_index]['Symbol'],
+            df_portfolio.iloc[v_index]['FullName'],
+            df_portfolio.iloc[v_index]['MarketCap'])
+    return stats
 
 
-@app.callback(Output('indicator-graphic', 'figure'), [Input('button', 'n_clicks'), Input('radio-tab1', 'value'),Input('ROCE-Slider', 'value'),Input('RevenueGrowth-Slider', 'value')])
-def render_graph_content(n_clicks,g_choice,g_roce_valuee,g_rev_valuee):
+@app.callback(
+    Output('sub-indicator-graphic', 'figure'),
+    [Input('indicator-graphic', 'clickData')])
+def callback_sub_image(hoverData):
+    global df_portfolio
+    v_index = hoverData['points'][0]['pointIndex']
+    symbol_sel = df_portfolio.iloc[v_index]['Symbol']
+    #print(symbol_sel)
+    stockdata = get_history(symbol=symbol_sel, start=(date.today()- datetime.timedelta(days=1*365)), end=date.today())
+    
+    fig = {'data':[go.Scatter(x=stockdata.index,y=stockdata['Close'],
+            mode='lines',
+            marker = {'color':'green'},
+            name='52Wk Trend'
+            ),
+            go.Scatter(x=stockdata.index,y=stockdata['Close'].rolling(20).mean(),
+                    mode='lines',
+                    marker = {'color':'red'},
+                    name='50 Day MA'
+                    ),
+            go.Scatter(x=stockdata.index,y=stockdata['Close'].rolling(200).mean(),
+                    mode='lines',
+                    marker = {'color':'blue'},
+                    name='200 Day MA'
+                    ),], 
+        'layout':go.Layout(
+                title = 'Last 1Yr Trend - {}'.format(symbol_sel),
+                
+                xaxis={
+                    'title': 'Date Range',
+                #    'type': 'linear'
+                },
+                yaxis={
+                    'title': 'Stock price (INR)',
+                #    'type': 'linear'
+                },
+                
+                hovermode='closest'
+            )}
+    #fig = {}
+    return fig
+
+@app.callback(
+    Output('sub-indicator-graphic-2', 'figure'),
+    [Input('indicator-graphic-2', 'clickData')])
+def callback_sub_image(hoverData):
+    global df_portfolio
+    v_index = hoverData['points'][0]['pointIndex']
+    symbol_sel = df_portfolio.iloc[v_index]['Symbol']
+    #print(symbol_sel)
+    stockdata = get_history(symbol=symbol_sel, start=(date.today()- datetime.timedelta(days=1*365)), end=date.today())
+    
+    fig = {'data':[go.Scatter(x=stockdata.index,y=stockdata['Close'],
+            mode='lines',
+            marker = {'color':'green'},
+            name='52Wk Trend'
+            ),
+            go.Scatter(x=stockdata.index,y=stockdata['Close'].rolling(20).mean(),
+                    mode='lines',
+                    marker = {'color':'red'},
+                    name='50 Day MA'
+                    ),
+            go.Scatter(x=stockdata.index,y=stockdata['Close'].rolling(200).mean(),
+                    mode='lines',
+                    marker = {'color':'blue'},
+                    name='200 Day MA'
+                    ),], 
+        'layout':go.Layout(
+                title = 'Last 1Yr Trend - {}'.format(symbol_sel),
+                
+                xaxis={
+                    'title': 'Date Range',
+                #    'type': 'linear'
+                },
+                yaxis={
+                    'title': 'Stock price (INR)',
+                #    'type': 'linear'
+                },
+                
+                hovermode='closest'
+            )}
+    #fig = {}
+    return fig
+
+
+
+g_clocks = 0
+
+@app.callback(Output('tab-1-2-content', 'children'), [Input('radio-tab1', 'value'),Input('ROCE-Slider', 'value'),Input('RevenueGrowth-Slider', 'value'),Input('button','n_clicks')])
+def render_button1(choice,roce_valuee,rev_valuee, n_clicks):
+    global g_clocks
+    if g_clocks == n_clicks:
+        return html.Div([
+            html.H3('Please Click the bellow Button for new Analysis as parameters/choices have been modified.')
+            ],style={'font-size': '20px', 'color':'red'})
+    else:
+        g_clocks = n_clicks
+        return html.Div([
+            html.Hr()
+            ],style={'font-size': '20px', 'color':'red'})
+
+
+@app.callback(Output('indicator-graphic-2', 'figure'), [Input('button', 'n_clicks')])
+def render_graph_content(n_clicks):
+    global df_portfolio
+    listOfBars = ['ROCE','Sales']
+    return {'data': [go.Bar(
+            y = df_portfolio['Symbol'],     # reverse your x- and y-axis assignments
+            x = df_portfolio[col],
+            orientation='h',  # this line makes it horizontal!
+            name=col
+            ) for col in listOfBars],
+    'layout':go.Layout(
+            title='Comparison of Ratios',
+            hovermode='closest'
+        )}
+
+
+
+@app.callback(Output('indicator-graphic', 'figure'), [Input('button', 'n_clicks')])
+def render_graph_content(n_clicks):
+    global df_portfolio
+    global g_choice
+    
     if g_choice == 'L':
-        l_dictLargeCap =  getAllTheLargeCapStocks(False)
-        l_ccp_L = checkForCoffeeCanInvestingStocks(l_dictLargeCap, 'Large', g_roce_valuee, g_rev_valuee, False, True)
-        l_df_ccp_L = pd.DataFrame(l_ccp_L, columns=columnsOfDataInPortfolio)
-        l_df_portfolio = l_df_ccp_L.copy(deep=True)
-        l_df_portfolio['text'] = l_df_portfolio['FullName']+'          MarketCap: INR(Cr) '+l_df_portfolio['MarketCap'].map(str)
         scale_factor = 5000
     elif g_choice == 'M':
-        l_dictMidCap =  getAllTheMidCapStocks(False)
-        l_ccp_M = checkForCoffeeCanInvestingStocks(l_dictMidCap, 'Mid', g_roce_valuee, g_rev_valuee, False, True)
-        l_df_ccp_M = pd.DataFrame(l_ccp_M, columns=columnsOfDataInPortfolio)
-        l_df_portfolio = l_df_ccp_M.copy(deep=True)
-        l_df_portfolio['text'] = l_df_portfolio['FullName']+'          MarketCap: INR(Cr) '+l_df_portfolio['MarketCap'].map(str)
         scale_factor = 500
     else:
-        l_dictSmallCap =  getAllTheSmallCapStocks(False)
-        l_ccp_S = checkForCoffeeCanInvestingStocks(l_dictSmallCap, 'Small', g_roce_valuee, g_rev_valuee, False, True)
-        l_df_ccp_S = pd.DataFrame(l_ccp_S, columns=columnsOfDataInPortfolio)
-        l_df_portfolio = l_df_ccp_S.copy(deep=True)
-        l_df_portfolio['text'] = l_df_portfolio['FullName']+'          MarketCap: INR(Cr) '+l_df_portfolio['MarketCap'].map(str)
         scale_factor = 10
 
-    #while semaphoreVar:
-    #    pass
-
-    #print("scale factor: {}".format(scale_factor))
-    #print('ROCE')
-    #print(df_portfolio['ROCE'])
-    #print('Sales')
-    #print(df_portfolio['Sales'])
-    #print('MarketCap')
-    #print(df_portfolio['MarketCap'])
-    #print(df_portfolio['Symbol'])
-    #semaphoreVar = 1
     return {'data': [go.Scatter(
-                x=l_df_portfolio['ROCE'],
-                y=l_df_portfolio['Sales'],
-                text=l_df_portfolio['text'],
+                x=df_portfolio['ROCE'],
+                y=df_portfolio['Sales'],
+                text=df_portfolio['text'],
                 mode='markers',
                 marker={
-                    'size': l_df_portfolio['MarketCap']/scale_factor,
+                    'size': df_portfolio['MarketCap']/scale_factor,
                     'opacity': 0.5,
                     'color':colorLookUp[g_choice],
                     'line': {'width': 0.5, 'color': 'red'}}
@@ -208,23 +342,21 @@ def render_graph_content(n_clicks,g_choice,g_roce_valuee,g_rev_valuee):
         )}
 
 
-@app.callback(Output('tab-1-content', 'children'),[Input('button', 'n_clicks'),Input('radio-tab1', 'value'),Input('ROCE-Slider', 'value'),Input('RevenueGrowth-Slider', 'value')])
-def render_tab1_content(n_clicks, choice, roce_valuee,rev_valuee):
+@app.callback(Output('tab-1-content', 'children'),[Input('radio-tab1', 'value'),Input('ROCE-Slider', 'value'),Input('RevenueGrowth-Slider', 'value')])
+def render_tab1_content(choice, roce_valuee,rev_valuee):
+    global df_portfolio
+    global dictLargeCap
+    global dictMidCap
+    global dictSmallCap
+    global g_choice
     g_choice = choice
     g_roce_valuee = roce_valuee
     g_rev_valuee = rev_valuee
+    g_choice = choice
+    
 
-    #print("n_clicks : {}".format(n_clicks))
-    #print("g_n_clicks : {}".format(g_n_clicks))
 
-    #if g_n_clicks == n_clicks:
-    #    return html.Div([
-    #        html.Hr()
-    #        ],style={'font-size': '20px'})
-
-    g_n_clicks = n_clicks
-
-    if g_choice == 'L':
+    if choice == 'L':
         #del df_portfolio
         dictLargeCap =  getAllTheLargeCapStocks(False)
         ccp_L = checkForCoffeeCanInvestingStocks(dictLargeCap, 'Large', g_roce_valuee, g_rev_valuee, False, True)
@@ -237,7 +369,7 @@ def render_tab1_content(n_clicks, choice, roce_valuee,rev_valuee):
             html.H3('This Universe is made of {} stocks'.format(len(dictLargeCap))),
             html.H3('Number of stocks which qualify Coffee Can criteria : {}'.format(len(ccp_L)))
             ],style={'font-size': '20px'})
-    elif g_choice == 'M':
+    elif choice == 'M':
         #del df_portfolio
         dictMidCap =  getAllTheMidCapStocks(False)
         ccp_M = checkForCoffeeCanInvestingStocks(dictMidCap, 'Mid', g_roce_valuee, g_rev_valuee, False, True)
@@ -265,7 +397,9 @@ def render_tab1_content(n_clicks, choice, roce_valuee,rev_valuee):
             ],style={'font-size': '20px'})
 
 
-
+PORT = 8050
+ADDRESS = '10.24.53.55'
 
 if __name__ == '__main__':
+    #app.run_server(debug=True,port=PORT, host=ADDRESS)
     app.run_server(debug=True)
