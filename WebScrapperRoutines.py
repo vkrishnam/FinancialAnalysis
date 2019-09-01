@@ -8,10 +8,10 @@ from bs4 import BeautifulSoup # for html parsing and scraping
 from multiprocessing.dummy import Pool as ThreadPool
 import bs4
 
-import matplotlib.pyplot as plt
-import seaborn as sns
-import json
-from tidylib import tidy_document # for tidying incorrect html
+#import matplotlib.pyplot as plt
+#import seaborn as sns
+#import json
+#from tidylib import tidy_document # for tidying incorrect html
 
 from IPython.core.display import HTML
 

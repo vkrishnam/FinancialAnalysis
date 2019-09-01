@@ -1,11 +1,12 @@
 import dash
 import dash_html_components as html
 import dash_core_components as dcc
-from getAllTheLargeCapStocks import getAllCapStocks
-from getAllTheLargeCapStocks import checkForCoffeeCanInvestingStocks
-from getAllTheLargeCapStocks import getAllTheLargeCapStocks
-from getAllTheLargeCapStocks import getAllTheMidCapStocks
-from getAllTheLargeCapStocks import getAllTheSmallCapStocks
+import dash_auth
+from getAllTheCapStocks import getAllCapStocks
+from getAllTheCapStocks import checkForCoffeeCanInvestingStocks
+from getAllTheCapStocks import getAllTheLargeCapStocks
+from getAllTheCapStocks import getAllTheMidCapStocks
+from getAllTheCapStocks import getAllTheSmallCapStocks
 from dash.dependencies import Input, Output, State
 import pandas as pd
 import plotly.graph_objs as go
@@ -16,6 +17,7 @@ from datetime import date
 import datetime
 import numpy as np
 
+USERNAME_PASSWORD_PAIRS = [['username','password'],['jamesbond','007']]
 
 semaphoreVar = 1
 scale_factor = 5000
@@ -41,7 +43,9 @@ colors = {
     'text': '#7FDBFF'
 }
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+auth = dash_auth.BasicAuth(app,USERNAME_PASSWORD_PAIRS)
 server = app.server
+
 [dictLargeCap, dictMidCap, dictSmallCap] =  getAllCapStocks(False)
 g_roce_valuee = 15
 g_rev_valuee = 8
