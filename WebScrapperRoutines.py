@@ -60,26 +60,27 @@ def remove_multiple_spaces(string):
     return string
 
 def request_with_check(url):
-    page_response = requests.get(url, timeout=240)
+    page_response = requests.get(url, timeout=300)
     status = page_response.status_code
     if status>299:
         raise AssertionError("page content not found, status: %s"%status)
     return page_response
 
 def findFullName_Screener(page_content):
-    tag = page_content.find("h1",attrs={'class':"no-margin"})
+    tag = (page_content.find("h1"))
     return tag.string
 
+
 def findMarketCap_Screener(page_content):
-    tag_str = str(page_content.find("li",attrs={'class':"four columns"}))
+    tag_str = str(page_content.find("li",attrs={'class':"flex flex-space-between"}))
     if "Market Cap" in tag_str:
-        marcap = BeautifulSoup(tag_str, "html.parser")
-        return (str(page_content.find("b").string) + " INR Cr.")
+        marcap = BeautifulSoup(tag_str)
+        return(str(marcap.find("span",attrs={'class':"number"}).string) + " Cr.")
     else:
         return "0 INR Cr."
 
 def findFullDescription_Screener(page_content):
-    tag = page_content.find("p",attrs={'class':"sub bigger"})
+    tag = page_content.find("div",attrs={'class':"company-profile-about"}).find("p")
     return tag.string
 
 def findRatios_Screener(page_content):
@@ -104,7 +105,7 @@ def findCashFlow_Screener(page_content):
 
 def getPageContent_Screener(symbol):
     str1= "https://www.screener.in/company/" + symbol +"/consolidated/"
-    page_response = requests.get(str1, timeout=240)
+    page_response = requests.get(str1, timeout=300)
     page_content = BeautifulSoup(page_response.content, "html.parser")
     return page_content
 

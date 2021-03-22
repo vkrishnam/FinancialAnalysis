@@ -16,6 +16,11 @@ from os import path
 import numpy as np # linear algebra
 import pandas as pd # pandas for dataframe based data processing and CSV file I/O
 
+from getWeeklyMA_yf import getWMAandRSI
+from nsetools import Nse  # Nse Driver
+
+import sys, getopt
+
 def is_number_tryexcept(s):
     """ Returns True is string is a number. """
     try:
@@ -318,20 +323,25 @@ def getROCEForTheStock(stockInfo):
     a = temp #[float(x[:-1]) for x in temp]
     return a
 
-def doesRoceDataMeetCriteria(roce_info, threshold):
-    #print(roce_info)
-    if len(roce_info) == 0:
-        return False
-    return all(i >= threshold for i in roce_info)
+def doesRoceDataMeetCriteria(roce_info, threshold, strict=True):
+    if strict == True:
+        if len(roce_info) == 0:
+            return False
+        return all(i >= threshold for i in roce_info)
+    else:
+        return (Average(roce_info) >= threshold)
 
-def doesSalesDataMeetCriteria(sales_info, threshold):
-    #print(roce_info)
-    if len(sales_info) == 0:
-        return False
-    return all(i >= threshold for i in sales_info)
+def doesSalesDataMeetCriteria(sales_info, threshold, strict=True):
+    if strict == True:
+        if len(sales_info) == 0:
+            return False
+        return all(i >= threshold for i in sales_info)
+    else:
+        return (Average(sales_info) >= threshold)
 
-def checkForCoffeeCanInvestingStocks(dictCap, cap='Large',  roceThreshold=15, salesThreshold=10, mask1=False, mask2=False):
+def checkForCoffeeCanInvestingStocks(dictCap, cap='Large',  roceThreshold=15, salesThreshold=10, mask1=False, mask2=False, strict=True):
     coffeeCanPortfolio = []
+    nse = Nse()
     largeCapList = list(dictCap.keys())
     #print(largeCapList)
     #print("Total ",cap ," Stocks: ", len(largeCapList))
@@ -343,13 +353,41 @@ def checkForCoffeeCanInvestingStocks(dictCap, cap='Large',  roceThreshold=15, sa
         #print(stockInfo)
         roce_info = getROCEForTheStock(stockInfo)
         #print(roce_info)
-        isRoceCriteriaMatch = doesRoceDataMeetCriteria(roce_info, roceThreshold)
+        isRoceCriteriaMatch = doesRoceDataMeetCriteria(roce_info, roceThreshold, strict)
         sales_info = getSalesGrowthForTheStock(stockInfo)
-        isSalesCriteriaMatch = doesSalesDataMeetCriteria(sales_info, salesThreshold)
+        isSalesCriteriaMatch = doesSalesDataMeetCriteria(sales_info, salesThreshold, strict)
         if (isRoceCriteriaMatch or mask1) and (isSalesCriteriaMatch or mask2):
             stockInfo.insert(0, symbol)
             stockInfo.append(Average(roce_info))
             stockInfo.append(Average(sales_info))
+            if True: #cap == 'Large':
+                wma, rsi, cmp, dir  = getWMAandRSI(symbol)
+                q = nse.get_quote(symbol)
+                if q is not None:
+                    h52 =  q['high52']
+                else:
+                    h52 = 0.0
+                if cmp > 0:
+                    upp = ((h52-cmp)/(cmp))*100.00
+                    risk = ((cmp-wma)/cmp)*100.00
+                else:
+                    upp = 0.0
+                    risk = 0.0
+            else:
+                wma, rsi, cmp = 0.0, 0.0, 0.0
+                stockInfo.append(rsi)
+                stockInfo.append(cmp)
+                stockInfo.append(wma)
+                h52 = 0.0
+                upp = 0.0
+                risk = 0.0
+            stockInfo.append(rsi)
+            stockInfo.append(cmp)
+            stockInfo.append(wma)
+            stockInfo.append(h52)
+            stockInfo.append(upp)
+            stockInfo.append(risk)
+
             #print(roce_info)
             #print(sales_info)
             coffeeCanPortfolio.append(stockInfo)
@@ -370,38 +408,90 @@ def printPortfolio(port):
     print("------------------------------------------------------------------")
     print("                       Portfolio ")
     print("------------------------------------------------------------------")
-    print("%4s %15s %45s %10s %10s"%("No","Symbol", "Name", "ROCE % (Avg)", "Sales Gr % (Avg)"))
+    print("%4s %15s %45s %10s %10s %10s %10s %10s %10s %10s"%("No","Symbol", "Name", "ROCE % (Avg)", "Sales Gr % (Avg)", "   RSI", " CMP " , " %UpPotential", " %RiskMargin", " Ratio"))
     cnt = 1
     for i in port:
         #print(i)
         #print(i[7])
-        print("%4s %15s %45s %8.2f %8.2f"%(cnt, i[0], i[1], i[8], i[9]))
+        if i[15] != 0.0:
+            ratio = i[14]/i[15]
+        else:
+            ratio = 0.0
+
+        print("%4s %15s %45s %8.2f     %8.2f           %8.2f    %8.2f    %8.2f    %8.2f    %8.2f"%(cnt, i[0], i[1], i[8], i[9], i[10],i[11],i[14],i[15],ratio))
         cnt = cnt+1
     print("------------------------------------------------------------------")
     return
 
-def my_main():
+def my_main(argv):
 
     ### USE THIS TO BUILD THE DATABASE
     #pprint(getAllTheStocksInfo('LARGE', True))
     #pprint(getAllTheStocksInfo('MID', True))
     #pprint(getAllTheStocksInfo('SMALL', True))
+    try:
+      opts, args = getopt.getopt(argv,"$hlmsS:R:")
+    except getopt.GetoptError:
+      print( 'coffeeCanScreener.py -h -l -m -s -$ -S <sales%> -R <ret%>')
+      sys.exit(2)
 
     [dictLargeCap, dictMidCap, dictSmallCap] =  getAllCapStocks(False)
 
-    ccp = checkForCoffeeCanInvestingStocks(dictLargeCap, 'Large', 15, 10, False, True)
+    def_dict = dictLargeCap
+    cap = 'Large'
+    r = 15
+    rtrue = True
+    s = 10
+    strue = True
+    strict = False
+
+    for opt, arg in opts:
+        if opt == '-h':
+            print ('coffeeCanScreener.py -h -l -m -s -$ -S <sales%> -R <ret%>')
+            sys.exit()
+        elif opt in ("-m"):
+            def_dict = dictMidCap
+            cap = 'Mid'
+        elif opt in ("-s"):
+            def_dict = dictSmallCap
+            cap = 'Small'
+
+        if opt in ("-$"):
+            strict = True
+
+        if opt in ("-R"):
+            r = int(arg)
+            rtrue = False
+
+        if opt in ("-S"):
+            s = int(arg)
+            strue = False
+
+
+    #print("Cap : " + cap)
+    #print("r : " + str(r))
+    #print("s : " + str(s))
+    #print("rtrue : " + str(rtrue))
+    #print("strue : " + str(strue))
+    #print("strict : " + str(strict))
+
+    ccp = checkForCoffeeCanInvestingStocks(def_dict, cap, r, s, rtrue, strue, strict)
     print("Number of CCP Stocks :", len(ccp))
     printPortfolio(ccp)
 
-    ccp = checkForCoffeeCanInvestingStocks(dictMidCap, 'Mid', 15, 10, False, True)
-    print("Number of CCP Stocks :", len(ccp))
-    printPortfolio(ccp)
+    #ccp = checkForCoffeeCanInvestingStocks(dictLargeCap, 'Large', 15, 10, False, False, False)
+    #print("Number of CCP Stocks :", len(ccp))
+    #printPortfolio(ccp)
 
-    ccp = checkForCoffeeCanInvestingStocks(dictSmallCap, 'Small', 15, 10, False, True)
-    print("Number of CCP Stocks :", len(ccp))
-    printPortfolio(ccp)
+    #ccp = checkForCoffeeCanInvestingStocks(dictMidCap, 'Mid', 15, 10, False, False, True)
+    #print("Number of CCP Stocks :", len(ccp))
+    #printPortfolio(ccp)
 
- 
- 
+    #ccp = checkForCoffeeCanInvestingStocks(dictSmallCap, 'Small', 15, 10, False, False, True)
+    #print("Number of CCP Stocks :", len(ccp))
+    #printPortfolio(ccp)
+
+
+
 if __name__ == '__main__':
-    my_main()
+    my_main(sys.argv[1:])

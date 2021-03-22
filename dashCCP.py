@@ -166,9 +166,9 @@ def callback_image(hoverData):
     global df_portfolio
     v_index = hoverData['points'][0]['pointIndex']
     stats = """
-        Symbol : **{}**    
-        FullName : **{}**   
-        MarketCap INR(Cr) : **{}**       
+        Symbol : **{}**
+        FullName : **{}**
+        MarketCap INR(Cr) : **{}**
         """.format(df_portfolio.iloc[v_index]['Symbol'],
             df_portfolio.iloc[v_index]['FullName'],
             df_portfolio.iloc[v_index]['MarketCap'])
@@ -181,9 +181,9 @@ def callback_image(hoverData):
     global df_portfolio
     v_index = hoverData['points'][0]['pointIndex']
     stats = """
-        Symbol : **{}**    
-        FullName : **{}**   
-        MarketCap INR(Cr) : **{}**       
+        Symbol : **{}**
+        FullName : **{}**
+        MarketCap INR(Cr) : **{}**
         """.format(df_portfolio.iloc[v_index]['Symbol'],
             df_portfolio.iloc[v_index]['FullName'],
             df_portfolio.iloc[v_index]['MarketCap'])
@@ -199,7 +199,7 @@ def callback_sub_image(hoverData):
     symbol_sel = df_portfolio.iloc[v_index]['Symbol']
     #print(symbol_sel)
     stockdata = get_history(symbol=symbol_sel, start=(date.today()- datetime.timedelta(days=1*365)), end=date.today())
-    
+
     fig = {'data':[go.Scatter(x=stockdata.index,y=stockdata['Close'],
             mode='lines',
             marker = {'color':'green'},
@@ -214,10 +214,10 @@ def callback_sub_image(hoverData):
                     mode='lines',
                     marker = {'color':'blue'},
                     name='200 Day MA'
-                    ),], 
+                    ),],
         'layout':go.Layout(
                 title = 'Last 1Yr Trend - {}'.format(symbol_sel),
-                
+
                 xaxis={
                     'title': 'Date Range',
                 #    'type': 'linear'
@@ -226,7 +226,7 @@ def callback_sub_image(hoverData):
                     'title': 'Stock price (INR)',
                 #    'type': 'linear'
                 },
-                
+
                 hovermode='closest'
             )}
     #fig = {}
@@ -241,7 +241,7 @@ def callback_sub_image(hoverData):
     symbol_sel = df_portfolio.iloc[v_index]['Symbol']
     #print(symbol_sel)
     stockdata = get_history(symbol=symbol_sel, start=(date.today()- datetime.timedelta(days=1*365)), end=date.today())
-    
+
     fig = {'data':[go.Scatter(x=stockdata.index,y=stockdata['Close'],
             mode='lines',
             marker = {'color':'green'},
@@ -256,10 +256,10 @@ def callback_sub_image(hoverData):
                     mode='lines',
                     marker = {'color':'blue'},
                     name='200 Day MA'
-                    ),], 
+                    ),],
         'layout':go.Layout(
                 title = 'Last 1Yr Trend - {}'.format(symbol_sel),
-                
+
                 xaxis={
                     'title': 'Date Range',
                 #    'type': 'linear'
@@ -268,7 +268,7 @@ def callback_sub_image(hoverData):
                     'title': 'Stock price (INR)',
                 #    'type': 'linear'
                 },
-                
+
                 hovermode='closest'
             )}
     #fig = {}
@@ -313,7 +313,7 @@ def render_graph_content(n_clicks):
 def render_graph_content(n_clicks):
     global df_portfolio
     global g_choice
-    
+
     if g_choice == 'L':
         scale_factor = 5000
     elif g_choice == 'M':
@@ -357,7 +357,7 @@ def render_tab1_content(choice, roce_valuee,rev_valuee):
     g_roce_valuee = roce_valuee
     g_rev_valuee = rev_valuee
     g_choice = choice
-    
+
 
 
     if choice == 'L':
@@ -402,8 +402,8 @@ def render_tab1_content(choice, roce_valuee,rev_valuee):
 
 
 PORT = 8050
-ADDRESS = '10.24.53.55'
+ADDRESS = '10.24.53.88'
 
 if __name__ == '__main__':
-    #app.run_server(debug=True,port=PORT, host=ADDRESS)
-    app.run_server(debug=True)
+    app.run_server(debug=True,port=PORT, host=ADDRESS)
+    #app.run_server(debug=True)
