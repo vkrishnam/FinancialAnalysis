@@ -23,7 +23,7 @@ def my_csv(csvfilename):
                 booody = "ALERT !!! "+ row[0] +" stock price got lower than SLP !!!"
                 if(dict_alerts.get(sym) is None):
                     dict_alerts[sym] = live_price
-                    client = Client("AC9f438ba67912243c507e5b5310dbc846", "223fb1602b51981b52378c900d95974f")
+                    client = Client("AC9f438ba67912243c507e5b5310dbc846", "27ae1e951806f5a586166052091726b9")
                     client.messages.create(to="+919880627826", from_="+14243733536", body=booody)
                 print(booody)
 
