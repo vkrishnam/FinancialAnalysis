@@ -16,7 +16,7 @@ from nsetools import Nse  # Nse Driver
 from pprint import pprint # just for neatness of display
 import pandas as pd
 import numpy as np
-
+from yahoo_fin import stock_info as si
 
 def my_main():
     option = sys.argv[-1]
@@ -51,6 +51,7 @@ def my_main():
         if(rsi >59.9 and rsi < 65):
         #if(rsi > -1.0 ):
             q = nse.get_quote(sym)
+            #q = si.get_live_price(sym+".NS")
             h52 = q['high52']
             upp = ((h52-cmp)/(cmp))*100.00
             risk = ((cmp-wma)/cmp)*100.00

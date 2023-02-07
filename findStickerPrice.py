@@ -59,6 +59,9 @@ def getBalanceSheetStatement(page_content,verbose=True):
 
 from yahoo_fin import stock_info as si
 
+from bsedata.bse import BSE
+import datetime
+
 def findStickerPrice(stock = 'IEX', standalone = False,verbose=True):
     if standalone:
         page_content = getPageContent_Standalone_Screener(stock)
@@ -88,7 +91,14 @@ def findStickerPrice(stock = 'IEX', standalone = False,verbose=True):
     #f.close()
     #print('Debug:::: '+str(stock)+'.NS')
 
-    price = si.get_live_price(str(stock)+'.NS')
+    #is numeral
+    if stock.isdigit():
+        b = BSE(update_codes = True)
+        q = b.getQuote(stock)
+        #print(q)
+        price = q["currentValue"]
+    else:
+        price = si.get_live_price(str(stock)+'.NS')
 
     discount_rate = 9
     first_five = 15
@@ -96,7 +106,11 @@ def findStickerPrice(stock = 'IEX', standalone = False,verbose=True):
     terminal = 5
     term = 10
     num_years_data = 5
-    current_year  = 2021
+    today = datetime.date.today()
+
+    year = today.year
+    #print(year)
+    current_year  = year
 
     cash_from_operations = []
     capex = []
@@ -132,12 +146,23 @@ def findStickerPrice(stock = 'IEX', standalone = False,verbose=True):
     fixed_month = 'Mar '
     found_match = False
 
+    #print(df_cash_flow.columns)
+
     for month in months:
-        year = month + str(current_year)
-        if year in df_cash_flow.columns:
+        year1 = month + str(current_year)
+        year2 = month + str(current_year-1)
+        #print(year1, year2)
+        if year1 in df_cash_flow.columns:
             fixed_month = month
             found_match = True
+            year = year1
             break;
+        if year2 in df_cash_flow.columns:
+            fixed_month = month
+            found_match = True
+            year = year2
+            break
+
     if found_match == False:
         current_year = 2020
         for month in months:
@@ -147,6 +172,7 @@ def findStickerPrice(stock = 'IEX', standalone = False,verbose=True):
                 found_match = True
                 break;
     if found_match == False:
+        print("prob")
         return 0.0, 0.0
 
     #print(fixed_month)
@@ -154,7 +180,11 @@ def findStickerPrice(stock = 'IEX', standalone = False,verbose=True):
 
     if verbose:
         print('Symbol : ' + symbol)
-    total_debt = float(df_bSheet.at['Borrowings', year])
+    #print(year+"\n ")
+    #print(df_bSheet)
+    #print("Venu\n")
+
+    #total_debt = float(df_bSheet.at['Borrowings', year])
     share_capital = float(df_bSheet.at['Share Capital -', year])
     cash_cash_balance = float(df_bSheet.at['Cash Equivalents', year])
 

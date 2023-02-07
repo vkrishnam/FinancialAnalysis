@@ -165,6 +165,123 @@ def getAllTheMidCapStocks(overrule=False):
 
     return dictMidCap
 
+import time
+
+def getAllCapStocks_selectively(overrule=False):
+
+
+    if path.exists('dictMidCap.txt') and (overrule == False):
+        #Read the file
+        s = open('dictMidCap.txt', 'r').read()
+        #Create the dictionary
+        dictMidCap = eval(s)
+        needMidCap = False
+    else:
+        dictMidCap = {}
+        needMidCap = True
+
+    if path.exists('dictSmallCap.txt') and (overrule == False):
+        #Read the file
+        s = open('dictSmallCap.txt', 'r').read()
+        #Create the dictionary
+        dictSmallCap = eval(s)
+        needSmallCap = False
+    else:
+        dictSmallCap = {}
+        needSmallCap = True
+
+    if path.exists('dictLargeCap.txt') and (overrule == False):
+        #Read the file
+        s = open('dictLargeCap.txt', 'r').read()
+        #Create the dictionary
+        dictLargeCap = eval(s)
+        needLargeCap = False
+    else:
+        dictLargeCap = {}
+        needLargeCap = True
+
+    #if( (not needLargeCap) and (not needMidCap) and (not needSmallCap) ):
+    #   return [ dictLargeCap, dictMidCap, dictSmallCap]
+
+    #listOfNse = getListOfNseStocks(verbose=False)
+    listOfStocks = list(getListOfNseStocks(verbose=False).keys())
+
+    #listOfStocks.remove("A2ZINFRA")
+
+
+
+    leng = len(listOfStocks)
+    #print("Range : ", leng)
+
+
+
+
+    for i in range(1,leng,1):
+        stock = listOfStocks[i]
+
+        symbol = stock
+        print("Symbol : ", symbol)
+
+        #time.sleep(2)
+
+        #check if the symbol is already in dictionaries
+        # else go for web scrapping
+
+        if (symbol in dictLargeCap.keys()) or (symbol in dictMidCap.keys()) or (symbol in dictSmallCap.keys()):
+            continue
+
+
+
+        try:
+            page_content = getPageContent_Screener(stock)
+            symbol = stock
+            print("Symbol : ", symbol)
+            fullName = findFullName(page_content, stock)
+            print("Full Name : ", fullName)
+            desc = findFullDescription(page_content, stock)
+            print("Full Desc : ", desc)
+            marketCap = (findMarketCap(page_content, stock).split())[0].replace(",", "")
+            if is_number_tryexcept(marketCap):
+                marketCap = float(marketCap)
+            else:
+                marketCap = 0.0
+            print("Market Cap : ", marketCap)
+            ratios = findRatios(page_content, stock)
+            pAndL = findPandL(page_content, stock)
+            balanceSheet = findBalanceSheet(page_content, stock)
+            cashFlow = findCashFlow(page_content, stock)
+            isMidCap = ((marketCap > 1000.0) & (marketCap < 20000.0))
+            isLargeCap = ((marketCap >= 20000.0))
+            isSmallCap = ((marketCap <= 1000.0))
+            print("Is Mid Cap :", isMidCap)
+            print("Is Small Cap :", isSmallCap)
+            print("Is Large Cap :", isLargeCap)
+            if isMidCap:
+                dictMidCap[symbol] = [fullName, desc, marketCap, pAndL, balanceSheet, cashFlow, ratios]
+                #if needMidCap:
+                targetFile = open('dictMidCap.txt', 'w')
+                targetFile.write(str(dictMidCap))
+                targetFile.close()
+            if isSmallCap:
+                dictSmallCap[symbol] = [fullName, desc, marketCap, pAndL, balanceSheet, cashFlow, ratios]
+                #if needSmallCap:
+                targetFile = open('dictSmallCap.txt', 'w')
+                targetFile.write(str(dictSmallCap))
+                targetFile.close()
+            if isLargeCap:
+                dictLargeCap[symbol] = [fullName, desc, marketCap, pAndL, balanceSheet, cashFlow, ratios]
+                #if needLargeCap:
+                targetFile = open('dictLargeCap.txt', 'w')
+                targetFile.write(str(dictLargeCap))
+                targetFile.close()
+            time.sleep(30)
+        except:
+            continue
+
+
+    return [dictLargeCap,dictMidCap,dictSmallCap]
+
+
 
 def getAllCapStocks(overrule=False):
     if path.exists('dictMidCap.txt') and (overrule == False):
@@ -200,40 +317,51 @@ def getAllCapStocks(overrule=False):
 
     #listOfNse = getListOfNseStocks(verbose=False)
     listOfStocks = list(getListOfNseStocks(verbose=False).keys())
+
+    listOfStocks.remove("A2ZINFRA")
+
+
+
     leng = len(listOfStocks)
     #print("Range : ", leng)
 
+
+
+
     for i in range(1,leng,1):
         stock = listOfStocks[i]
-        page_content = getPageContent_Screener(stock)
-        symbol = stock
-        print("Symbol : ", symbol)
-        fullName = findFullName(page_content, stock)
-        print("Full Name : ", fullName)
-        desc = findFullDescription(page_content, stock)
-        print("Full Desc : ", desc)
-        marketCap = (findMarketCap(page_content, stock).split())[0].replace(",", "")
-        if is_number_tryexcept(marketCap):
-            marketCap = float(marketCap)
-        else:
-            marketCap = 0.0
-        print("Market Cap : ", marketCap)
-        ratios = findRatios(page_content, stock)
-        pAndL = findPandL(page_content, stock)
-        balanceSheet = findBalanceSheet(page_content, stock)
-        cashFlow = findCashFlow(page_content, stock)
-        isMidCap = ((marketCap > 1000.0) & (marketCap < 20000.0))
-        isLargeCap = ((marketCap >= 20000.0))
-        isSmallCap = ((marketCap <= 1000.0))
-        print("Is Mid Cap :", isMidCap)
-        print("Is Small Cap :", isSmallCap)
-        print("Is Large Cap :", isLargeCap)
-        if isMidCap and  needMidCap:
-            dictMidCap[symbol] = [fullName, desc, marketCap, pAndL, balanceSheet, cashFlow, ratios]
-        if isSmallCap and needSmallCap:
-            dictSmallCap[symbol] = [fullName, desc, marketCap, pAndL, balanceSheet, cashFlow, ratios]
-        if isLargeCap and  needLargeCap:
-            dictLargeCap[symbol] = [fullName, desc, marketCap, pAndL, balanceSheet, cashFlow, ratios]
+        try:
+            page_content = getPageContent_Screener(stock)
+            symbol = stock
+            print("Symbol : ", symbol)
+            fullName = findFullName(page_content, stock)
+            print("Full Name : ", fullName)
+            desc = findFullDescription(page_content, stock)
+            print("Full Desc : ", desc)
+            marketCap = (findMarketCap(page_content, stock).split())[0].replace(",", "")
+            if is_number_tryexcept(marketCap):
+                marketCap = float(marketCap)
+            else:
+                marketCap = 0.0
+            print("Market Cap : ", marketCap)
+            ratios = findRatios(page_content, stock)
+            pAndL = findPandL(page_content, stock)
+            balanceSheet = findBalanceSheet(page_content, stock)
+            cashFlow = findCashFlow(page_content, stock)
+            isMidCap = ((marketCap > 1000.0) & (marketCap < 20000.0))
+            isLargeCap = ((marketCap >= 20000.0))
+            isSmallCap = ((marketCap <= 1000.0))
+            print("Is Mid Cap :", isMidCap)
+            print("Is Small Cap :", isSmallCap)
+            print("Is Large Cap :", isLargeCap)
+            if isMidCap and  needMidCap:
+                dictMidCap[symbol] = [fullName, desc, marketCap, pAndL, balanceSheet, cashFlow, ratios]
+            if isSmallCap and needSmallCap:
+                dictSmallCap[symbol] = [fullName, desc, marketCap, pAndL, balanceSheet, cashFlow, ratios]
+            if isLargeCap and  needLargeCap:
+                dictLargeCap[symbol] = [fullName, desc, marketCap, pAndL, balanceSheet, cashFlow, ratios]
+        except:
+            continue
 
     if needMidCap:
         targetFile = open('dictMidCap.txt', 'w')
@@ -387,7 +515,8 @@ def my_main():
     #pprint(getAllTheStocksInfo('MID', True))
     #pprint(getAllTheStocksInfo('SMALL', True))
 
-    [dictLargeCap, dictMidCap, dictSmallCap] =  getAllCapStocks(False)
+    #[dictLargeCap, dictMidCap, dictSmallCap] =  getAllCapStocks(False)
+    [dictLargeCap, dictMidCap, dictSmallCap] =  getAllCapStocks_selectively(False)
 
     ccp = checkForCoffeeCanInvestingStocks(dictLargeCap, 'Large', 15, 10, False, True)
     print("Number of CCP Stocks :", len(ccp))
@@ -401,7 +530,7 @@ def my_main():
     print("Number of CCP Stocks :", len(ccp))
     printPortfolio(ccp)
 
- 
- 
+
+
 if __name__ == '__main__':
     my_main()

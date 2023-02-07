@@ -75,7 +75,7 @@ def findFullName_Screener(page_content):
 def findMarketCap_Screener(page_content):
     tag_str = str(page_content.find("li",attrs={'class':"flex flex-space-between"}))
     if "Market Cap" in tag_str:
-        marcap = BeautifulSoup(tag_str)
+        marcap = BeautifulSoup(tag_str,'features="lxml"')
         return(str(marcap.find("span",attrs={'class':"number"}).string) + " Cr.")
     else:
         return "0 INR Cr."

@@ -69,6 +69,8 @@ def findGrowthPct(fwd, base, term):
 
 
 from yahoo_fin import stock_info as si
+from bsedata.bse import BSE
+import datetime
 
 def findIntrinsicValue(stock = 'IEX', standalone = False,verbose=True, aggresive=False):
     if standalone:
@@ -99,7 +101,12 @@ def findIntrinsicValue(stock = 'IEX', standalone = False,verbose=True, aggresive
     #f.close()
     #print('Debug:::: '+str(stock)+'.NS')
 
-    price = si.get_live_price(str(stock)+'.NS')
+    if stock.isdigit():
+        b = BSE(update_codes = True)
+        q = b.getQuote(stock)
+        price = q["currentValue"]
+    else:
+        price = si.get_live_price(str(stock)+'.NS')
 
     discount_rate = 9
     first_five = 15
@@ -107,7 +114,9 @@ def findIntrinsicValue(stock = 'IEX', standalone = False,verbose=True, aggresive
     terminal = 5
     term = 10
     num_years_data = 5
-    current_year  = 2020
+    current_year  = 2023
+    today = datetime.date.today()
+    current_year = today.year
 
     cash_from_operations = []
     capex = []
@@ -124,17 +133,24 @@ def findIntrinsicValue(stock = 'IEX', standalone = False,verbose=True, aggresive
     found_match = False
 
     for month in months:
-        year = month + str(current_year)
-        if year in df_cash_flow.columns:
+        year1 = month + str(current_year)
+        year2 = month + str(current_year-1)
+        if year1 in df_cash_flow.columns:
             fixed_month = month
             found_match = True
+            year = year1
+            break;
+        if year2 in df_cash_flow.columns:
+            fixed_month = month
+            found_match = True
+            year = year2
             break;
     if found_match == False:
         return 0.0, 0.0
 
     if verbose:
         print('Symbol : ' + symbol)
-    total_debt = float(df_bSheet.at['Borrowings', year])
+    total_debt = float(df_bSheet.at['Borrowings +', year])
     share_capital = float(df_bSheet.at['Share Capital -', year])
     cash_cash_balance = float(df_bSheet.at['Cash Equivalents', year])
 
