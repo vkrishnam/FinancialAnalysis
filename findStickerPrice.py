@@ -22,7 +22,7 @@ import os.path
 from os import path
 import numpy as np # linear algebra
 import pandas as pd # pandas for dataframe based data processing and CSV file I/O
-
+import math
 
 def getCashFlowStatement(page_content,verbose=True):
     table = findCashFlow(page_content)
@@ -78,13 +78,13 @@ def findStickerPrice(stock = 'IEX', standalone = False,verbose=True):
     face = findFaceValue(page_content, stock)
     #print("\nFace Value  : ", face)
     roce = findROCE(page_content, stock)
-    print("\nROCE  : ", roce)
+    print("\n ROCE  : ", roce)
     roe = findROE(page_content, stock)
     #print("\nROE  : ", roe)
     pe = findPE(page_content, stock)
-    print("\nPE  : ", pe)
+    print(" PE    : ", pe)
     dy = findDividendYield(page_content, stock)
-    #print("\nDividend Yield  : ", dy)
+    print(" Dividend Yield  : ", dy)
 
     #f = open("filecontent.html", 'w')
     #f.write(str(page_content));
@@ -341,7 +341,7 @@ def findStickerPrice(stock = 'IEX', standalone = False,verbose=True):
     #df  = pd.DataFrame(data)
     print('-----------------------------------------------------------------------------')
     print(df)
-    print('-----------------------------------------------------------------------------\n\n')
+    print('-----------------------------------------------------------------------------\n')
 
     current_eps = eps[0]
     #print(current_eps)
@@ -412,8 +412,8 @@ def my_main(argv):
 
         intrinsic_price, price = findStickerPrice(stock=sym,standalone=stand,verbose=verb)
         print(' Symbol : ' + sym)
-        print(' Sticker price of ' + sym + ' is : ' + str(intrinsic_price) )
-        print(' CMP of ' + sym + ' is : ' + str(price) )
+        print(' Sticker price is     : ' + str(math.trunc(intrinsic_price)) )
+        print(' Curr Market Price is : ' + str(math.trunc(price)) )
 
     else:
         f = open(filename)
@@ -441,14 +441,14 @@ def my_main(argv):
                 if condition == True:
                     print('------------------------------------------------------------')
                     print(' Symbol : ' + sym)
-                    print(' Sticker price of ' + sym + ' is : ' + str(intrinsic_price) )
-                    print(' CMP of ' + sym + ' is : ' + str(price) +'\n')
+                    print(' Sticker price of ' + sym + ' is : ' + str(math.trunc(intrinsic_price)) )
+                    print(' CMP of ' + sym + ' is : ' + str(math.trunc(price)) +'\n')
 
             else:
                 print('------------------------------------------------------------')
                 print(' Symbol : ' + sym)
-                print(' Sticker price of ' + sym + ' is : ' + str(intrinsic_price) )
-                print(' CMP of ' + sym + ' is : ' + str(price) +'\n')
+                print(' Sticker price of ' + sym + ' is : ' + str(math.trunc(intrinsic_price)) )
+                print(' CMP of ' + sym + ' is : ' + str(math.trunc(price)) +'\n')
 
 
 

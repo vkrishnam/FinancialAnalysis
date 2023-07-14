@@ -17,7 +17,7 @@ from WebScrapperRoutines import findCashFlow
 from WebScrapperRoutines import getPageContent_Screener
 from WebScrapperRoutines import getPageContent_Standalone_Screener
 from statistics import mean
-
+import math
 import os.path
 from os import path
 import numpy as np # linear algebra
@@ -88,13 +88,13 @@ def findIntrinsicValue(stock = 'IEX', standalone = False,verbose=True, aggresive
     face = findFaceValue(page_content, stock)
     #print("\nFace Value  : ", face)
     roce = findROCE(page_content, stock)
-    print("\nROCE  : ", roce)
+    print(" ROCE   : ", roce)
     roe = findROE(page_content, stock)
     #print("\nROE  : ", roe)
     pe = findPE(page_content, stock)
-    print("\nPE  : ", pe)
+    print(" PE     : ", pe)
     dy = findDividendYield(page_content, stock)
-    #print("\nDividend Yield  : ", dy)
+    print(" Dividend Yield  : ", dy)
 
     #f = open("filecontent.html", 'w')
     #f.write(str(page_content));
@@ -295,11 +295,12 @@ def my_main(argv):
 
 
     if filename == 'File' :
+        sym = sym.rstrip('\n')
 
+        print(' Symbol :  ' + sym)
         intrinsic_price, price = findIntrinsicValue(stock=sym,standalone=stand,verbose=verb,aggresive=aggres)
-        print(' Symbol : ' + sym)
-        print(' Intrinsic Value of ' + sym + ' is : ' + str(intrinsic_price) )
-        print(' CMP of ' + sym + ' is : ' + str(price) )
+        print(" Intrinsic Value is   : %5d " % ( (math.trunc(intrinsic_price))) )
+        print(" Curr Market Price is : %5d " % ( (math.trunc(price))) )
 
     else:
         f = open(filename)
@@ -327,14 +328,14 @@ def my_main(argv):
                 if condition == True:
                     print('------------------------------------------------------------')
                     print(' Symbol : ' + sym)
-                    print(' Intrinsic Value of ' + sym + ' is : ' + str(intrinsic_price) )
-                    print(' CMP of ' + sym + ' is : ' + str(price) +'\n')
+                    print(' Intrinsic Value of ' + sym + ' is : ' + str(math.trunc(intrinsic_price)) )
+                    print(' CMP of ' + sym + ' is : ' + str(math.trunc(price)) +'\n')
 
             else:
                 print('------------------------------------------------------------')
                 print(' Symbol : ' + sym)
-                print(' Intrinsic Value of ' + sym + ' is : ' + str(intrinsic_price) )
-                print(' CMP of ' + sym + ' is : ' + str(price) +'\n')
+                print(' Intrinsic Value of ' + sym + ' is : ' + str(math.trunc(intrinsic_price)) )
+                print(' CMP of ' + sym + ' is : ' + str(math.trunc(price)) +'\n')
 
 
 

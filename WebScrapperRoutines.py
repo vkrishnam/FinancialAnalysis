@@ -114,6 +114,17 @@ def findPE_Screener(page_content):
 
     return '10.00'
 
+def findDebt_Screener(page_content):
+    tag_str = page_content.findAll("li",attrs={'class':"flex flex-space-between"})
+    #print(tag_str)
+    for tag in tag_str:
+        str_tag = str(tag)
+        if "ROCE" in str_tag:     #TOFIX
+            fv  = BeautifulSoup(str_tag, "html.parser")
+            return(str(fv.find("span",attrs={'class':"number"}).string))
+
+    return '10.00'
+
 def findROCE_Screener(page_content):
     tag_str = page_content.findAll("li",attrs={'class':"flex flex-space-between"})
     #print(tag_str)
@@ -288,6 +299,10 @@ def findFullDescription(page_content, symbol):
 def findFaceValue(page_content, symbol):
     #page_content = getPageContent_Screener(symbol)
     return findFaceValue_Screener(page_content)
+
+def findDebt(page_content, symbol):
+    #page_content = getPageContent_Screener(symbol)
+    return findDebt_Screener(page_content)
 
 def findROCE(page_content, symbol):
     #page_content = getPageContent_Screener(symbol)

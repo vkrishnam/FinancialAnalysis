@@ -96,11 +96,11 @@ def getWMAandRSI(sym='LT', adj=0.0, window=20, period=14):
     wdata.index = pd.to_datetime(wdata.index)
     wdata = wdata.astype(float)
     r_df = wdata.resample('W').agg(agg_dict)
-    wma = (float)(r_df.tail(window)[['Close']].mean())
+    wma = float((r_df.tail(window)[['Close']].mean()).iloc[0])
     limited_wma = wma + (adj/100.0)*wma #"{:.2f}".format(wma)
 
     r_df['RSI'] = computeRSI(r_df['Close'], period)
-    rsi = (float)(r_df.tail(1)[['RSI']].mean())
+    rsi = float((r_df.tail(1)[['RSI']].mean()).iloc[0])
     limited_rsi = rsi #"{:.2f}".format(rsi)
 
 
@@ -116,7 +116,7 @@ def getWMAandRSI(sym='LT', adj=0.0, window=20, period=14):
         trend = 'UP'
 
 
-    current = (float)(wdata.tail(1)[['Close']].mean())
+    current = float((wdata.tail(1)[['Close']].mean()).iloc[0])
     limited_current = current #"{:.2f}".format(current)
 
     return limited_wma, limited_rsi, limited_current, trend
