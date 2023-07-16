@@ -91,12 +91,15 @@ def my_main(argv):
 
         #print("Venu")
         #print(sym)
+        sym = str(sym)
         #if sym == 'ABB':
         #    continue
         try:
             wma, rsi, cmp, trnd  = getWMAandRSI(sym)
             #print(wma, rsi, cmp, trnd)  #  = 0.0, 0.0, 0.0, 'UP'
             #wma, rsi, cmp, trnd  = 0.0, 0.0, 0.0, 'UP'
+            #print(rsi >59.9 and rsi < 65)
+
             if(rsi >59.9 and rsi < 65):
             #if(rsi > -1.0 ):
                 #print(sym)
@@ -111,7 +114,7 @@ def my_main(argv):
                 if 'targetMedianPrice' in info.keys():
                     tar = info['targetMedianPrice']
                 else:
-                    tar = info['currentPrice']
+                    tar = info['previousClose']
                 h52 = info['fiftyTwoWeekHigh']
                 upp = ((h52-cmp)/(cmp))*100.00
                 tpp = ((tar-cmp)/(cmp))*100.00
